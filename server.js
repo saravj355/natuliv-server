@@ -1,16 +1,19 @@
 require('dotenv').config();
+
 const chalk = require('chalk');
 const express = require('express');
+const database = require('./src/db/connection');
+
 const app = express();
 const PORT = process.env.PORT;
-const database = require('./src/db/connection');
+
+const routes = require('./src/routes');
 
 //body parser middleware
 app.use(express.json());
 
-app.use('/', (req, res) => {
-    res.send('Home');
-});
+//routes
+app.use(routes);
 
 async function init() {
     await database.connection();
