@@ -38,7 +38,6 @@ module.exports = function (sequelize) {
             creationDate: {
                 type: DataTypes.DATE,
                 allowNull: false,
-                defaultValue: new Date(),
             },
             description: {
                 type: DataTypes.TEXT,

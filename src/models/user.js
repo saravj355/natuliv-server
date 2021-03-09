@@ -33,7 +33,6 @@ module.exports = function (sequelize) {
             creationDate: {
                 type: DataTypes.DATE,
                 allowNull: false,
-                defaultValue: new Date(),
             },
             lastLoginDate: {
                 type: DataTypes.DATE,
