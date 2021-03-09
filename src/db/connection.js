@@ -11,4 +11,4 @@ async function assertDatabaseConnection() {
     }
 }
 
-module.exports = { assertDatabaseConnection };
+module.exports = { connection: assertDatabaseConnection };
