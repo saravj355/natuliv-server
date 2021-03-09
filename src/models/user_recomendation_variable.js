@@ -1,4 +1,6 @@
-module.exports = function (sequelize, DataTypes) {
+const { DataTypes } = require('sequelize');
+
+module.exports = function (sequelize) {
     return sequelize.define(
         'user_recomendation_variable',
         {
@@ -61,31 +63,27 @@ module.exports = function (sequelize, DataTypes) {
                     fields: [{ name: 'id' }],
                 },
                 {
-                    name:
-                        'FK_UserRecomendationVariable_RecomendationVariableCatalog_idx',
+                    name: 'FK_URV_RecomendationVariableCatalog_idx',
                     using: 'BTREE',
                     fields: [{ name: 'hairShapeId' }],
                 },
                 {
-                    name: 'FK_UserRecomendationVariable_User_idx',
+                    name: 'FK_URV_User_idx',
                     using: 'BTREE',
                     fields: [{ name: 'userId' }],
                 },
                 {
-                    name:
-                        'FK_UserRecomendationVariable_RecomendationVariableCatalog_h_idx',
+                    name: 'FK_URV_RecomendationVariableCatalog_h_idx',
                     using: 'BTREE',
                     fields: [{ name: 'hairTypeId' }],
                 },
                 {
-                    name:
-                        'FK_UserRecomendationVariable_RecomendationVariableCatalog_g_idx',
+                    name: 'FK_URV_RecomendationVariableCatalog_g_idx',
                     using: 'BTREE',
                     fields: [{ name: 'genderId' }],
                 },
                 {
-                    name:
-                        'FK_UserRecomendationVariable_RecomendationVariableCatalog_s_idx',
+                    name: 'FK_URV_RecomendationVariableCatalog_s_idx',
                     using: 'BTREE',
                     fields: [{ name: 'skinTypeId' }],
                 },

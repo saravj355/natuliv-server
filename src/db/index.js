@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { Sequelize } = require('sequelize');
 const { Config } = require('../config/db');
 
 const sequelize = new Sequelize({
@@ -26,7 +26,7 @@ const modelDefiners = [
 
 // We define all models according to their files.
 for (const modelDefiner of modelDefiners) {
-    modelDefiner(sequelize, DataTypes);
+    modelDefiner(sequelize);
 }
 
 module.exports = sequelize;
