@@ -13,10 +13,26 @@ module.exports = function (sequelize) {
             productId: {
                 type: DataTypes.STRING(20),
                 allowNull: false,
+                validate: {
+                    notEmpty: {
+                        args: true,
+                        msg: 'product_id must be required',
+                    },
+                },
             },
             name: {
                 type: DataTypes.STRING(50),
                 allowNull: false,
+                validate: {
+                    notEmpty: {
+                        args: true,
+                        msg: 'name must be required',
+                    },
+                    isAlpha: {
+                        args: true,
+                        msg: 'name must be only strings',
+                    },
+                },
             },
             description: {
                 type: DataTypes.TEXT,
@@ -25,6 +41,12 @@ module.exports = function (sequelize) {
             price: {
                 type: DataTypes.DOUBLE,
                 allowNull: false,
+                validate: {
+                    min: {
+                        args: 0,
+                        msg: 'price must be greater than 0',
+                    },
+                },
             },
             supplierId: {
                 type: DataTypes.INTEGER,
