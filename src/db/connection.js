@@ -1,4 +1,4 @@
-const sequelize = require('./index');
+const { sequelize } = require('./index');
 
 async function assertDatabaseConnection() {
     console.log('Checking database connection...');
