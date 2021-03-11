@@ -1,6 +1,4 @@
-const { DataTypes } = require('sequelize');
-
-module.exports = function (sequelize) {
+module.exports = function (sequelize, DataTypes) {
     return sequelize.define(
         'product',
         {
@@ -26,11 +24,7 @@ module.exports = function (sequelize) {
                 validate: {
                     notEmpty: {
                         args: true,
-                        msg: 'name must be required',
-                    },
-                    isAlpha: {
-                        args: true,
-                        msg: 'name must be only strings',
+                        msg: 'name is required',
                     },
                 },
             },
@@ -42,10 +36,8 @@ module.exports = function (sequelize) {
                 type: DataTypes.DOUBLE,
                 allowNull: false,
                 validate: {
-                    min: {
-                        args: 0,
-                        msg: 'price must be greater than 0',
-                    },
+                    min: 0,
+                    isNumeric: true,
                 },
             },
             supplierId: {
