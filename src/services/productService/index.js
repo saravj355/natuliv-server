@@ -26,8 +26,6 @@ async function getProducts(filter = {}) {
         filter.isActive = true;
     }
 
-    console.log(filter, max, min, limit);
-
     return Product.findAll({
         include: [models.supplier, models.product_category],
         where: {
