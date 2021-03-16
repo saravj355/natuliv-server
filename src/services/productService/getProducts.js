@@ -9,15 +9,18 @@ function handleFilters(filter) {
     };
 
     if (filter.limit) {
-        filters.where.limit = filter.limit;
+        filters.limit = filter.limit;
+        delete filter.limit;
     }
+
+    filters.where = filter;
 
     if (filter.isActive === undefined) {
         filters.where.isActive = true;
     }
 
     if (filter.price) {
-        filters.price = {
+        filters.where.price = {
             [Op.lt]: filter.price.lowerThan || Number.MAX_VALUE,
             [Op.gt]: filter.price.greaterThan || -1,
         };
