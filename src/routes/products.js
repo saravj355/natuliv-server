@@ -69,15 +69,35 @@ router.put('/updateProduct/:id', async (req, res) => {
         if (!req.params.id) {
             throw new Error('id cannot be empty');
         }
-        const product = await productService.getProduct(req.params.id);
+        const foundProduct = await productService.getProduct(req.params.id);
 
-        if (!product) {
+        if (!foundProduct) {
             throw new Error('The product doesnt exists');
         }
 
         await productService.updateProduct(req.params.id, req.body);
 
         res.send('Product updated successfully');
+    } catch (error) {
+        res.status(400).send(`An error ocurred: ${error}`);
+    }
+});
+
+/**
+ * disable product
+ * productId: int
+ */
+router.put('/disableProduct/:id', async (req, res) => {
+    try {
+        const foundProduct = await productService.getProduct(req.params.id);
+
+        if (!foundProduct) {
+            throw new Error('The product doesnt exists');
+        }
+
+        await productService.disableProduct(foundProduct);
+
+        res.send(foundProduct);
     } catch (error) {
         res.status(400).send(`An error ocurred: ${error}`);
     }
