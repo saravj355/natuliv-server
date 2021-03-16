@@ -51,6 +51,12 @@ module.exports = function (sequelize, DataTypes) {
             imagePath: {
                 type: DataTypes.STRING(200),
                 allowNull: false,
+                validate: {
+                    notEmpty: {
+                        args: true,
+                        msg: 'image is required',
+                    },
+                },
             },
             productCategoryId: {
                 type: DataTypes.INTEGER,
