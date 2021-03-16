@@ -13,6 +13,10 @@ router.get('/getProduct/:id', async (req, res) => {
         }
         const product = await productService.getProduct(req.params.id);
 
+        if (!product) {
+            throw new Error('The product doesnt exists');
+        }
+
         res.send(product);
     } catch (error) {
         res.status(400).send(`An error ocurred: ${error}`);
@@ -21,14 +25,13 @@ router.get('/getProduct/:id', async (req, res) => {
 
 /**
  * Get products
- * req : { filter : ProductFilter }
+ * req : { filter : supplierId, productCategoryId, isActive,
+    price: lowerThan, greaterThan
+    limit
  * @return Products []
  */
 router.post('/getProducts', async (req, res) => {
     try {
-        if (!req.body) {
-            throw new Error('product cannot be empty');
-        }
         const products = await productService.getProducts(req.body);
 
         res.send(products);
@@ -53,6 +56,30 @@ router.post('/createProduct', async (req, res) => {
         res.status(400).send(
             `An error ocurred while creating the product: ${error}`
         );
+    }
+});
+
+/**
+ * Update product
+ * productId: int
+ * @return Product || {}
+ */
+router.put('/updateProduct/:id', async (req, res) => {
+    try {
+        if (!req.params.id) {
+            throw new Error('id cannot be empty');
+        }
+        const product = await productService.getProduct(req.params.id);
+
+        if (!product) {
+            throw new Error('The product doesnt exists');
+        }
+
+        await productService.updateProduct(req.params.id, req.body);
+
+        res.send('Product updated succesfully');
+    } catch (error) {
+        res.status(400).send(`An error ocurred: ${error}`);
     }
 });
 
