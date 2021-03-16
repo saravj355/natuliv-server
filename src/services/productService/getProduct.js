@@ -1,10 +1,12 @@
 const { models } = require('../../db');
 const ProductModel = models.product;
 
-async function getProducts(productId) {
+async function getProduct(productId) {
     return ProductModel.findOne({
-        productId,
+        where: {
+            productId: productId,
+        },
     });
 }
 
-module.exports = getProducts;
+module.exports = getProduct;
