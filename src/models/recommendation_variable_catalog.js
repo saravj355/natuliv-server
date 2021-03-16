@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define(
-        'recomendation_variable_catalog',
+        'recommendation_variable_catalog',
         {
             id: {
                 autoIncrement: true,
@@ -19,7 +19,7 @@ module.exports = function (sequelize, DataTypes) {
         },
         {
             sequelize,
-            tableName: 'recomendation_variable_catalog',
+            tableName: 'recommendation_variable_catalog',
             timestamps: false,
             indexes: [
                 {

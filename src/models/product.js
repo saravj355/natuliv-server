@@ -9,7 +9,7 @@ module.exports = function (sequelize, DataTypes) {
                 primaryKey: true,
             },
             productId: {
-                type: DataTypes.STRING(20),
+                type: DataTypes.STRING(36),
                 allowNull: false,
                 validate: {
                     notEmpty: {

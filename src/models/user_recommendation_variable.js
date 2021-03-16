@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define(
-        'user_recomendation_variable',
+        'user_recommendation_variable',
         {
             id: {
                 autoIncrement: true,
@@ -20,7 +20,7 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: {
-                    model: 'recomendation_variable_catalog',
+                    model: 'recommendation_variable_catalog',
                     key: 'id',
                 },
             },
@@ -28,7 +28,7 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: {
-                    model: 'recomendation_variable_catalog',
+                    model: 'recommendation_variable_catalog',
                     key: 'id',
                 },
             },
@@ -36,7 +36,7 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: {
-                    model: 'recomendation_variable_catalog',
+                    model: 'recommendation_variable_catalog',
                     key: 'id',
                 },
             },
@@ -44,14 +44,14 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: {
-                    model: 'recomendation_variable_catalog',
+                    model: 'recommendation_variable_catalog',
                     key: 'id',
                 },
             },
         },
         {
             sequelize,
-            tableName: 'user_recomendation_variable',
+            tableName: 'user_recommendation_variable',
             timestamps: false,
             indexes: [
                 {
@@ -61,7 +61,7 @@ module.exports = function (sequelize, DataTypes) {
                     fields: [{ name: 'id' }],
                 },
                 {
-                    name: 'FK_URV_RecomendationVariableCatalog_idx',
+                    name: 'FK_URV_RecommendationVariableCatalog_idx',
                     using: 'BTREE',
                     fields: [{ name: 'hairShapeId' }],
                 },
@@ -71,17 +71,17 @@ module.exports = function (sequelize, DataTypes) {
                     fields: [{ name: 'userId' }],
                 },
                 {
-                    name: 'FK_URV_RecomendationVariableCatalog_h_idx',
+                    name: 'FK_URV_RecommendationVariableCatalog_h_idx',
                     using: 'BTREE',
                     fields: [{ name: 'hairTypeId' }],
                 },
                 {
-                    name: 'FK_URV_RecomendationVariableCatalog_g_idx',
+                    name: 'FK_URV_RecommendationVariableCatalog_g_idx',
                     using: 'BTREE',
                     fields: [{ name: 'genderId' }],
                 },
                 {
-                    name: 'FK_URV_RecomendationVariableCatalog_s_idx',
+                    name: 'FK_URV_RecommendationVariableCatalog_s_idx',
                     using: 'BTREE',
                     fields: [{ name: 'skinTypeId' }],
                 },
