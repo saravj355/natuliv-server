@@ -53,4 +53,25 @@ router.post('/create-supplier', async (req, res) => {
         res.status(400).send(`An error ocurred: ${error}`);
     }
 });
+
+/**
+ * Update supplier
+ * supplierId: int
+ * @return Supplier || {}
+ */
+router.put('/update-supplier/:id', async (req, res) => {
+    try {
+        const foundSupplier = await supplierService.getSupplier(req.params.id);
+
+        if (!foundSupplier) {
+            throw new Error('supplier doesn\'t exists');
+        }
+
+        await supplierService.updateSupplier(req.params.id, req.body);
+
+        res.send('Supplier has been updated');
+    } catch (error) {
+        res.status(400).send(`An error ocurred: ${error}`);
+    }
+});
 module.exports = router;
