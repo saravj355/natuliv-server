@@ -1,3 +1,4 @@
-module.exports = {
-    uuid: require('./UUID'),
-};
+const uuid = require('./uuid');
+const date = require('./date');
+
+module.exports = { uuid, date };
