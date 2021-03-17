@@ -26,6 +26,12 @@ function handleFilters(filter) {
         };
     }
 
+    if (filter.name) {
+        filters.where.name = {
+            [Op.like]: `%${filter.name}%`,
+        };
+    }
+
     return filters;
 }
 
