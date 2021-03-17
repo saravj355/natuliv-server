@@ -2,7 +2,8 @@ const { models } = require('../../db');
 const { Op } = require('sequelize');
 const ProductModel = models.product;
 
-function handleFilters(filter) {
+function handleProductsFilters(filter) {
+    /* default filters */
     const filters = {
         where: {},
         limit: 10,
@@ -36,7 +37,8 @@ function handleFilters(filter) {
 }
 
 async function getProducts(filter = {}) {
-    const filters = handleFilters(filter);
+    const filters = handleProductsFilters(filter);
+
     return ProductModel.findAll({
         include: [
             {

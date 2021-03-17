@@ -1,9 +1,9 @@
 const { models } = require('../../db');
-const supplierService = models.supplier;
+const SupplierModel = models.supplier;
 
-async function updateSupplier(id, newSupplier) {
-    return supplierService.update(newSupplier, {
-        where: { supplierId: id },
+async function updateSupplier(supplierId, newSupplier) {
+    return SupplierModel.update(newSupplier, {
+        where: { supplierId: supplierId },
     });
 }
 

@@ -1,33 +1,32 @@
 const router = require('express').Router();
+const { isEmpty } = require('../utilities/validate');
 const supplierService = require('../services/supplierService');
 
 /**
-  Get supplier
+ * Get a supplier
  * supplierId: int
- *@return supplier || {}
+ * @return supplier || {}
  */
-
 router.get('/get-supplier/:id', async (req, res) => {
     try {
-        const supplier = await supplierService.getSupplier(req.params.id);
+        const foundSupplier = await supplierService.getSupplier(req.params.id);
 
-        if (!supplier) {
+        if (!foundSupplier) {
             throw new Error('Supplier doesn\'t exists');
         }
 
-        res.send(supplier);
+        res.send(foundSupplier);
     } catch (error) {
         res.status(400).send(`An error ocurred: ${error}`);
     }
 });
 
 /**
-  Get suppliers
+ * Get all suppliers
  * supplierId: int
-  * req: filter {} : name, isActive, limit 
- *@return suppliers || {}
+ * req: filter: {}
+ * @return suppliers || {}
  */
-
 router.post('/get-suppliers', async (req, res) => {
     try {
         const suppliers = await supplierService.getSuppliers(req.body);
@@ -39,13 +38,16 @@ router.post('/get-suppliers', async (req, res) => {
 });
 
 /**
-  create supplier
+ * Create a supplier
  * supplier: object
- * @return supplier 
+ * @return supplier
  */
-
 router.post('/create-supplier', async (req, res) => {
     try {
+        if (isEmpty(req.body)) {
+            throw new Error('Supplier cannot be empty');
+        }
+
         const supplier = await supplierService.createSupplier(req.body);
 
         res.send(supplier);
@@ -55,7 +57,7 @@ router.post('/create-supplier', async (req, res) => {
 });
 
 /**
- * Update supplier
+ * Update a supplier
  * supplierId: int
  * @return Supplier || {}
  */
@@ -64,7 +66,7 @@ router.put('/update-supplier/:id', async (req, res) => {
         const foundSupplier = await supplierService.getSupplier(req.params.id);
 
         if (!foundSupplier) {
-            throw new Error('supplier doesn\'t exists');
+            throw new Error('Supplier doesn\'t exists');
         }
 
         await supplierService.updateSupplier(req.params.id, req.body);
@@ -74,10 +76,9 @@ router.put('/update-supplier/:id', async (req, res) => {
         res.status(400).send(`An error ocurred: ${error}`);
     }
 });
-module.exports = router;
 
 /**
- * update supplier status
+ * Update supplier status
  * supplierId: int
  */
 router.put('/update-supplier-status/:id', async (req, res) => {
@@ -85,7 +86,7 @@ router.put('/update-supplier-status/:id', async (req, res) => {
         const foundSupplier = await supplierService.getSupplier(req.params.id);
 
         if (!foundSupplier) {
-            throw new Error('The product doesn\'t exists');
+            throw new Error('Supplier doesn\'t exists');
         }
 
         await supplierService.updateSupplierStatus(foundSupplier);
@@ -95,3 +96,5 @@ router.put('/update-supplier-status/:id', async (req, res) => {
         res.status(400).send(`An error ocurred: ${error}`);
     }
 });
+
+module.exports = router;

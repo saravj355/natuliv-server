@@ -1,2 +1,2 @@
-***Natuliv Web Application***, promoting natural products and 
+**_Natuliv Web Application_**, promoting natural products and
 and offers personalized product recommendations

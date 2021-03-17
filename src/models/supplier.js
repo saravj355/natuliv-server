@@ -30,7 +30,6 @@ module.exports = function (sequelize, DataTypes) {
                         args: true,
                         msg: 'contact number is required',
                     },
-                    isNumeric: true,
                 },
             },
             websiteUrl: {

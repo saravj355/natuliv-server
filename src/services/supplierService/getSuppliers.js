@@ -1,17 +1,14 @@
 const { models } = require('../../db');
 const { Op } = require('sequelize');
-const supplierService = models.supplier;
+const SupplierModel = models.supplier;
 
-function handleSupplierFilters(filter) {
+function handleSuppliersFilters(filter) {
     /* default filters */
     const filters = {
-        where: {
-            name: {
-                [Op.like]: `%${filter.name}%`,
-            },
-        },
+        where: {},
         limit: 10,
     };
+
     if (filter.limit) {
         filters.limit = filter.limit;
         delete filter.limit;
@@ -32,10 +29,10 @@ function handleSupplierFilters(filter) {
     return filters;
 }
 
-async function getSuppliers(filter) {
-    const filters = handleSupplierFilters(filter);
+async function getSuppliers(filter = {}) {
+    const filters = handleSuppliersFilters(filter);
 
-    return supplierService.findAll({
+    return SupplierModel.findAll({
         where: filters.where,
         limit: filters.limit,
     });
