@@ -14,7 +14,7 @@ module.exports = function (sequelize, DataTypes) {
                 validate: {
                     notEmpty: {
                         args: true,
-                        msg: 'product_id must be required',
+                        msg: 'product_id is required',
                     },
                 },
             },

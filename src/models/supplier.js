@@ -15,14 +15,33 @@ module.exports = function (sequelize, DataTypes) {
             name: {
                 type: DataTypes.STRING(45),
                 allowNull: false,
+                validate: {
+                    notEmpty: {
+                        args: true,
+                        msg: 'name is required',
+                    },
+                },
             },
             contactNumber: {
                 type: DataTypes.STRING(45),
                 allowNull: false,
+                validate: {
+                    notEmpty: {
+                        args: true,
+                        msg: 'contact number is required',
+                    },
+                    isNumeric: true,
+                },
             },
             websiteUrl: {
                 type: DataTypes.STRING(100),
                 allowNull: true,
+                validate: {
+                    isUrl: {
+                        args: true,
+                        msg: 'product_id must be required',
+                    },
+                },
             },
             logoPath: {
                 type: DataTypes.STRING(200),
