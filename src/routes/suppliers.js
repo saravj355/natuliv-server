@@ -21,4 +21,21 @@ router.get('/get-supplier/:id', async (req, res) => {
     }
 });
 
+/**
+  Get supplier
+ * supplierId: int
+  * req: filter {} : name, isActive 
+ *@return suppliers || {}
+ */
+
+router.post('/get-suppliers', async (req, res) => {
+    try {
+        const suppliers = await supplierService.getSuppliers(req.body);
+
+        res.send(suppliers);
+    } catch (error) {
+        res.status(400).send(`An error ocurred: ${error}`);
+    }
+});
+
 module.exports = router;
