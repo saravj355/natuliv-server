@@ -38,4 +38,19 @@ router.post('/get-suppliers', async (req, res) => {
     }
 });
 
+/**
+  create supplier
+ * supplier: object
+ * @return supplier 
+ */
+
+router.post('/create-supplier', async (req, res) => {
+    try {
+        const supplier = await supplierService.createSupplier(req.body);
+
+        res.send(supplier);
+    } catch (error) {
+        res.status(400).send(`An error ocurred: ${error}`);
+    }
+});
 module.exports = router;

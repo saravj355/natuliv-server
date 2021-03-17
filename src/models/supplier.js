@@ -36,12 +36,6 @@ module.exports = function (sequelize, DataTypes) {
             websiteUrl: {
                 type: DataTypes.STRING(100),
                 allowNull: true,
-                validate: {
-                    isUrl: {
-                        args: true,
-                        msg: 'product_id must be required',
-                    },
-                },
             },
             logoPath: {
                 type: DataTypes.STRING(200),

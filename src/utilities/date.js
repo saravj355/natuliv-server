@@ -1,7 +1,7 @@
 const dayjs = require('dayjs');
 
-function getDate(format = 'DD-MM-YYYY HH:mm:ss Z[Z]') {
-    console.log(dayjs().format(format));
+function getDate(format = 'YYYY-MM-DD HH:mm:ssZ[Z]') {
+    return dayjs().format(format);
 }
 
-module.exports = { getDate };
+module.exports = getDate;
