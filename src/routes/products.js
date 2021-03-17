@@ -22,7 +22,7 @@ router.get('/get-product/:id', async (req, res) => {
 
 /**
  * Get products
- * req : { filter : supplierId, productCategoryId, isActive,
+ * req : { filter : supplierId, name, productCategoryId, isActive,
     price: lowerThan, greaterThan
     limit
  * @return Products []
