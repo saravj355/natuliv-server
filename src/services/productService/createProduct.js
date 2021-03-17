@@ -5,7 +5,7 @@ const ProductModel = models.product;
 
 async function createProduct(product) {
     product.productId = uuid();
-    return await ProductModel.create(product);
+    return ProductModel.create(product);
 }
 
 module.exports = createProduct;
