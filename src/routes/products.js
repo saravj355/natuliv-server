@@ -94,7 +94,7 @@ router.put('/update-product-status/:id', async (req, res) => {
 
         await productService.updateProductStatus(foundProduct);
 
-        res.send(foundProduct);
+        res.send('the product status has been updated');
     } catch (error) {
         res.status(400).send(`An error ocurred: ${error}`);
     }
