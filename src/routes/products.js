@@ -6,15 +6,12 @@ const productService = require('../services/productService');
  * productId: int
  * @return Product || {}
  */
-router.get('/getProduct/:id', async (req, res) => {
+router.get('/get-product/:id', async (req, res) => {
     try {
-        if (!req.params.id) {
-            throw new Error('id cannot be empty');
-        }
         const product = await productService.getProduct(req.params.id);
 
         if (!product) {
-            throw new Error('The product doesnt exists');
+            throw new Error('The product doesn\'t exists');
         }
 
         res.send(product);
@@ -30,7 +27,7 @@ router.get('/getProduct/:id', async (req, res) => {
     limit
  * @return Products []
  */
-router.post('/getProducts', async (req, res) => {
+router.post('/get-products', async (req, res) => {
     try {
         const products = await productService.getProducts(req.body);
 
@@ -45,7 +42,7 @@ router.post('/getProducts', async (req, res) => {
  * req : { product: Product }
  * @return Product
  */
-router.post('/createProduct', async (req, res) => {
+router.post('/create-product', async (req, res) => {
     try {
         if (!req.body) {
             throw new Error('product cannot be empty');
@@ -64,7 +61,7 @@ router.post('/createProduct', async (req, res) => {
  * productId: int
  * @return Product || {}
  */
-router.put('/updateProduct/:id', async (req, res) => {
+router.put('/update-product/:id', async (req, res) => {
     try {
         if (!req.params.id) {
             throw new Error('id cannot be empty');
@@ -84,10 +81,10 @@ router.put('/updateProduct/:id', async (req, res) => {
 });
 
 /**
- * disable product
+ * update product status
  * productId: int
  */
-router.put('/disableProduct/:id', async (req, res) => {
+router.put('/update-product-status/:id', async (req, res) => {
     try {
         const foundProduct = await productService.getProduct(req.params.id);
 
@@ -95,7 +92,7 @@ router.put('/disableProduct/:id', async (req, res) => {
             throw new Error('The product doesnt exists');
         }
 
-        await productService.disableProduct(foundProduct);
+        await productService.updateProductStatus(foundProduct);
 
         res.send(foundProduct);
     } catch (error) {

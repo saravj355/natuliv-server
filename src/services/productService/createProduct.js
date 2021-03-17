@@ -1,11 +1,10 @@
 const { models } = require('../../db');
-const utils = require('../../utilities');
+const { uuid } = require('../../utilities');
 
 const ProductModel = models.product;
 
 async function createProduct(product) {
-    product.productId = utils.uuid();
-    product.isActive = 1;
+    product.productId = uuid();
     return await ProductModel.create(product);
 }
 
