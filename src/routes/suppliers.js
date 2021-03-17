@@ -22,9 +22,9 @@ router.get('/get-supplier/:id', async (req, res) => {
 });
 
 /**
-  Get supplier
+  Get suppliers
  * supplierId: int
-  * req: filter {} : name, isActive 
+  * req: filter {} : name, isActive, limit 
  *@return suppliers || {}
  */
 

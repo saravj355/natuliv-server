@@ -1,10 +1,15 @@
 const { models } = require('../../db');
+const { Op } = require('sequelize');
 const supplierService = models.supplier;
 
 function handleSupplierFilters(filter) {
     /* default filters */
     const filters = {
-        where: {},
+        where: {
+            name: {
+                [Op.like]: `%${filter.name}%`,
+            },
+        },
         limit: 10,
     };
     if (filter.limit) {
@@ -16,6 +21,12 @@ function handleSupplierFilters(filter) {
 
     if (filter.isActive === undefined) {
         filters.where.isActive = true;
+    }
+
+    if (filter.name) {
+        filters.where.name = {
+            [Op.like]: `%${filter.name}%`,
+        };
     }
 
     return filters;
