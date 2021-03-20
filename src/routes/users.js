@@ -3,6 +3,25 @@ const { isEmpty } = require('../utilities/validate');
 const userService = require('../services/userService');
 
 /**
+ * Get an user
+ * userId: int
+ * @return User || {}
+ */
+router.get('/get-user/:id', async (req, res) => {
+    try {
+        const foundUser = await userService.getUser(req.params.id);
+
+        if (!foundUser) {
+            throw new Error('User doesn\'t exists');
+        }
+
+        res.send(foundUser);
+    } catch (error) {
+        res.status(400).send(`An error ocurred: ${error}`);
+    }
+});
+
+/**
  * Create an user
  * user: object
  * @return user
