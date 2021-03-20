@@ -7,7 +7,6 @@ async function createUser(newUser) {
     newUser.creationDate = date();
     newUser.passwordHash = passwordHash(newUser.password);
     newUser.userRoleId = 3;
-    console.log(newUser);
     return UserModel.create(newUser);
 }
 
