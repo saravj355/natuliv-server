@@ -55,4 +55,25 @@ router.post('/create-user', async (req, res) => {
     }
 });
 
+/**
+ * Update an user
+ * userId: int
+ * @return User || {}
+ */
+router.put('/update-user/:id', async (req, res) => {
+    try {
+        const foundUser = await userService.getUser(req.params.id);
+
+        if (!foundUser) {
+            throw new Error('User doesn\'t exists');
+        }
+
+        await userService.updateUser(req.params.id, req.body);
+
+        res.send('User has been updated');
+    } catch (error) {
+        res.status(400).send(`An error ocurred: ${error}`);
+    }
+});
+
 module.exports = router;
