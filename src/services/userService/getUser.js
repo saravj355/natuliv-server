@@ -1,8 +1,8 @@
 const { models } = require('../../db');
-const userModel = models.user;
+const UserModel = models.user;
 
 async function getUser(userId) {
-    return userModel.findOne({
+    return UserModel.findOne({
         where: {
             userId: userId,
         },

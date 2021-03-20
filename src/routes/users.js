@@ -22,6 +22,21 @@ router.get('/get-user/:id', async (req, res) => {
 });
 
 /**
+ * Get all users
+ * req : filter: {}
+ * @return Users []
+ */
+router.post('/get-users', async (req, res) => {
+    try {
+        const users = await userService.getUsers(req.body);
+
+        res.send(users);
+    } catch (error) {
+        res.status(400).send(`An error ocurred: ${error}`);
+    }
+});
+
+/**
  * Create an user
  * user: object
  * @return user
