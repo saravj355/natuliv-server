@@ -9,7 +9,7 @@ module.exports = function (sequelize, DataTypes) {
                 primaryKey: true,
             },
             userId: {
-                type: DataTypes.STRING(20),
+                type: DataTypes.STRING(36),
                 allowNull: false,
             },
             name: {
@@ -18,6 +18,10 @@ module.exports = function (sequelize, DataTypes) {
             },
             lastName: {
                 type: DataTypes.STRING(45),
+                allowNull: false,
+            },
+            email: {
+                type: DataTypes.STRING(50),
                 allowNull: false,
             },
             passwordHash: {
