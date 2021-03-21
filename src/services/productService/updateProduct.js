@@ -1,8 +1,8 @@
 const { models } = require('../../db');
 const ProductModel = models.product;
 
-async function updateProduct(productId, newProduct) {
-    return ProductModel.update(newProduct, {
+async function updateProduct(productId, product) {
+    return ProductModel.update(product, {
         where: { productId: productId },
     });
 }
