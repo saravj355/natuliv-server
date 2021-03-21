@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { isEmpty } = require('../utilities/validate');
 const productService = require('../services/productService');
 
 /**
@@ -43,10 +42,6 @@ router.post('/get-products', async (req, res) => {
  */
 router.post('/create-product', async (req, res) => {
     try {
-        if (isEmpty(req.body)) {
-            throw new Error('Product cannot be empty');
-        }
-
         const product = await productService.createProduct(req.body);
 
         res.send(product);

@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { isEmpty } = require('../utilities/validate');
 const supplierService = require('../services/supplierService');
 
 /**
@@ -44,7 +43,7 @@ router.post('/get-suppliers', async (req, res) => {
  */
 router.post('/create-supplier', async (req, res) => {
     try {
-        if (isEmpty(req.body)) {
+        if (!req.body) {
             throw new Error('Supplier cannot be empty');
         }
 
