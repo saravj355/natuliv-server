@@ -6,7 +6,7 @@ const productService = require('../services/productService');
  * productId: int
  * @return Product || {}
  */
-router.get('/get-product/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
         const foundProduct = await productService.getProduct(req.params.id);
 
@@ -25,7 +25,7 @@ router.get('/get-product/:id', async (req, res) => {
  * req : filter: {}
  * @return Products []
  */
-router.post('/get-products', async (req, res) => {
+router.post('/search', async (req, res) => {
     try {
         const products = await productService.getProducts(req.body);
 
@@ -40,7 +40,7 @@ router.post('/get-products', async (req, res) => {
  * req : { product: Product }
  * @return Product
  */
-router.post('/create-product', async (req, res) => {
+router.post('/create', async (req, res) => {
     try {
         const product = await productService.createProduct(req.body);
 
@@ -55,7 +55,7 @@ router.post('/create-product', async (req, res) => {
  * productId: int
  * @return Product || {}
  */
-router.put('/update-product/:id', async (req, res) => {
+router.put('/update/:id', async (req, res) => {
     try {
         const foundProduct = await productService.getProduct(req.params.id);
 
