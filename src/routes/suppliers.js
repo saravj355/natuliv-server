@@ -4,7 +4,7 @@ const supplierService = require('../services/supplierService');
 /**
  * Get supplier
  * supplierId: int
- * @return supplier
+ * @return Supplier
  */
 router.get('/:id', async (req, res) => {
     try {
@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
 /**
  * Get all suppliers
  * req: filter: {}
- * @return suppliers || {}
+ * @return Suppliers || {}
  */
 router.post('/search', async (req, res) => {
     try {
@@ -38,7 +38,7 @@ router.post('/search', async (req, res) => {
 /**
  * Create supplier
  * supplier: object
- * @return supplier
+ * @return Supplier
  */
 router.post('/create', async (req, res) => {
     try {
@@ -53,7 +53,7 @@ router.post('/create', async (req, res) => {
 /**
  * Update supplier
  * supplierId: int
- * @return supplier || {}
+ * @return Supplier || {}
  */
 router.put('/update/:id', async (req, res) => {
     try {

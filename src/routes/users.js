@@ -11,7 +11,7 @@ router.get('/:id', async (req, res) => {
         const foundUser = await userService.getUser(req.params.id);
 
         if (!foundUser) {
-            throw new Error('User doesn\'t exists');
+            throw new Error('User not found');
         }
 
         res.send(foundUser);
@@ -23,7 +23,7 @@ router.get('/:id', async (req, res) => {
 /**
  * Get all users
  * req : filter: {}
- * @return Users []
+ * @return Users || {}
  */
 router.post('/search', async (req, res) => {
     try {
@@ -36,9 +36,9 @@ router.post('/search', async (req, res) => {
 });
 
 /**
- * Create an user
+ * Create user
  * user: object
- * @return user
+ * @return User
  */
 router.post('/create', async (req, res) => {
     try {
@@ -51,7 +51,7 @@ router.post('/create', async (req, res) => {
 });
 
 /**
- * Update an user
+ * Update user
  * userId: int
  * @return User || {}
  */
@@ -60,7 +60,7 @@ router.put('/update/:id', async (req, res) => {
         const foundUser = await userService.getUser(req.params.id);
 
         if (!foundUser) {
-            throw new Error('User doesn\'t exists');
+            throw new Error('User not found');
         }
 
         await userService.updateUser(req.params.id, req.body);

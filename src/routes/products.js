@@ -2,16 +2,16 @@ const router = require('express').Router();
 const productService = require('../services/productService');
 
 /**
- * Get a product
+ * Get product
  * productId: int
- * @return Product || {}
+ * @return Product
  */
 router.get('/:id', async (req, res) => {
     try {
         const foundProduct = await productService.getProduct(req.params.id);
 
         if (!foundProduct) {
-            throw new Error('Product doesn\'t exists');
+            throw new Error('Product not found');
         }
 
         res.send(foundProduct);
@@ -36,8 +36,8 @@ router.post('/search', async (req, res) => {
 });
 
 /**
- * Create a product
- * req : { product: Product }
+ * Create product
+ * product: object
  * @return Product
  */
 router.post('/create', async (req, res) => {
@@ -51,7 +51,7 @@ router.post('/create', async (req, res) => {
 });
 
 /**
- * Update a product
+ * Update product
  * productId: int
  * @return Product || {}
  */
@@ -60,7 +60,7 @@ router.put('/update/:id', async (req, res) => {
         const foundProduct = await productService.getProduct(req.params.id);
 
         if (!foundProduct) {
-            throw new Error('Product doesn\'t exists');
+            throw new Error('Product not found');
         }
 
         await productService.updateProduct(req.params.id, req.body);
