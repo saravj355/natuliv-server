@@ -35,6 +35,9 @@ async function getUsers(filter = {}) {
     return UserModel.findAll({
         where: filters.where,
         limit: filters.limit,
+        attributes: {
+            exclude: ['passwordHash'],
+        },
     });
 }
 

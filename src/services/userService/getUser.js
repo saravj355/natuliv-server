@@ -6,6 +6,9 @@ async function getUser(userId) {
         where: {
             userId: userId,
         },
+        attributes: {
+            exclude: ['passwordHash'],
+        },
     });
 }
 
