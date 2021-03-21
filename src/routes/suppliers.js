@@ -72,24 +72,4 @@ router.put('/update/:id', async (req, res) => {
     }
 });
 
-/**
- * Update supplier status
- * supplierId: int
- */
-router.put('/update-supplier-status/:id', async (req, res) => {
-    try {
-        const foundSupplier = await supplierService.getSupplier(req.params.id);
-
-        if (!foundSupplier) {
-            throw new Error('Supplier doesn\'t exists');
-        }
-
-        await supplierService.updateSupplierStatus(foundSupplier);
-
-        res.send('Supplier status has been updated');
-    } catch (error) {
-        res.status(400).send(`An error ocurred: ${error}`);
-    }
-});
-
 module.exports = router;
