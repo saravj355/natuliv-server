@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { isEmpty } = require('../utilities/validate');
 const userService = require('../services/userService');
 
 /**
@@ -7,7 +6,7 @@ const userService = require('../services/userService');
  * userId: int
  * @return User || {}
  */
-router.get('/get-user/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
         const foundUser = await userService.getUser(req.params.id);
 
@@ -26,7 +25,7 @@ router.get('/get-user/:id', async (req, res) => {
  * req : filter: {}
  * @return Users []
  */
-router.post('/get-users', async (req, res) => {
+router.post('/search', async (req, res) => {
     try {
         const users = await userService.getUsers(req.body);
 
@@ -41,12 +40,8 @@ router.post('/get-users', async (req, res) => {
  * user: object
  * @return user
  */
-router.post('/create-user', async (req, res) => {
+router.post('/create', async (req, res) => {
     try {
-        if (isEmpty(req.body)) {
-            throw new Error('User cannot be empty');
-        }
-
         const user = await userService.createUser(req.body);
 
         res.send(user);
@@ -60,7 +55,7 @@ router.post('/create-user', async (req, res) => {
  * userId: int
  * @return User || {}
  */
-router.put('/update-user/:id', async (req, res) => {
+router.put('/update/:id', async (req, res) => {
     try {
         const foundUser = await userService.getUser(req.params.id);
 
@@ -71,26 +66,6 @@ router.put('/update-user/:id', async (req, res) => {
         await userService.updateUser(req.params.id, req.body);
 
         res.send('User has been updated');
-    } catch (error) {
-        res.status(400).send(`An error ocurred: ${error}`);
-    }
-});
-
-/**
- * update user status
- * userId: int
- */
-router.put('/update-user-status/:id', async (req, res) => {
-    try {
-        const foundUser = await userService.getUser(req.params.id);
-
-        if (!foundUser) {
-            throw new Error('User doesn\'t exists');
-        }
-
-        await userService.updateUserStatus(foundUser);
-
-        res.send('User status has been updated');
     } catch (error) {
         res.status(400).send(`An error ocurred: ${error}`);
     }
