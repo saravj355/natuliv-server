@@ -2,16 +2,16 @@ const router = require('express').Router();
 const supplierService = require('../services/supplierService');
 
 /**
- * Get a supplier
+ * Get supplier
  * supplierId: int
- * @return supplier || {}
+ * @return supplier
  */
 router.get('/:id', async (req, res) => {
     try {
         const foundSupplier = await supplierService.getSupplier(req.params.id);
 
         if (!foundSupplier) {
-            throw new Error('Supplier doesn\'t exists');
+            throw new Error('Supplier not found');
         }
 
         res.send(foundSupplier);
@@ -22,7 +22,6 @@ router.get('/:id', async (req, res) => {
 
 /**
  * Get all suppliers
- * supplierId: int
  * req: filter: {}
  * @return suppliers || {}
  */
@@ -37,7 +36,7 @@ router.post('/search', async (req, res) => {
 });
 
 /**
- * Create a supplier
+ * Create supplier
  * supplier: object
  * @return supplier
  */
@@ -52,16 +51,16 @@ router.post('/create', async (req, res) => {
 });
 
 /**
- * Update a supplier
+ * Update supplier
  * supplierId: int
- * @return Supplier || {}
+ * @return supplier || {}
  */
 router.put('/update/:id', async (req, res) => {
     try {
         const foundSupplier = await supplierService.getSupplier(req.params.id);
 
         if (!foundSupplier) {
-            throw new Error('Supplier doesn\'t exists');
+            throw new Error('Supplier not found');
         }
 
         await supplierService.updateSupplier(req.params.id, req.body);
