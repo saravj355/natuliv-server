@@ -71,24 +71,4 @@ router.put('/update/:id', async (req, res) => {
     }
 });
 
-/**
- * update a product status
- * productId: int
- */
-router.put('/update-product-status/:id', async (req, res) => {
-    try {
-        const foundProduct = await productService.getProduct(req.params.id);
-
-        if (!foundProduct) {
-            throw new Error('Product doesn\'t exists');
-        }
-
-        await productService.updateProductStatus(foundProduct);
-
-        res.send('Product status has been updated');
-    } catch (error) {
-        res.status(400).send(`An error ocurred: ${error}`);
-    }
-});
-
 module.exports = router;
