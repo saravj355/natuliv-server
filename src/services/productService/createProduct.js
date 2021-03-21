@@ -1,9 +1,9 @@
 const { models } = require('../../db');
-const { uuid } = require('../../utilities');
+const Utils = require('../../utilities');
 const ProductModel = models.product;
 
 async function createProduct(newProduct) {
-    newProduct.productId = uuid();
+    newProduct.productId = Utils.UUID.generate();
     return ProductModel.create(newProduct);
 }
 

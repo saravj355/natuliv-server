@@ -1,11 +1,11 @@
-const { uuid, date, passwordHash } = require('../../utilities');
+const Utils = require('../../utilities');
 const { models } = require('../../db');
 const UserModel = models.user;
 
 async function createUser(newUser) {
-    newUser.userId = uuid();
-    newUser.creationDate = date();
-    newUser.passwordHash = passwordHash(newUser.password);
+    newUser.userId = Utils.UUID.generate();
+    newUser.creationDate = Utils.Date.getDate();
+    newUser.passwordHash = Utils.Hash.generate(newUser.password);
     newUser.userRoleId = 3;
     return UserModel.create(newUser);
 }
