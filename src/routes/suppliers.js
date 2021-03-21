@@ -6,7 +6,7 @@ const supplierService = require('../services/supplierService');
  * supplierId: int
  * @return supplier || {}
  */
-router.get('/get-supplier/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
         const foundSupplier = await supplierService.getSupplier(req.params.id);
 
@@ -26,7 +26,7 @@ router.get('/get-supplier/:id', async (req, res) => {
  * req: filter: {}
  * @return suppliers || {}
  */
-router.post('/get-suppliers', async (req, res) => {
+router.post('/search', async (req, res) => {
     try {
         const suppliers = await supplierService.getSuppliers(req.body);
 
@@ -41,12 +41,8 @@ router.post('/get-suppliers', async (req, res) => {
  * supplier: object
  * @return supplier
  */
-router.post('/create-supplier', async (req, res) => {
+router.post('/create', async (req, res) => {
     try {
-        if (!req.body) {
-            throw new Error('Supplier cannot be empty');
-        }
-
         const supplier = await supplierService.createSupplier(req.body);
 
         res.send(supplier);
@@ -60,7 +56,7 @@ router.post('/create-supplier', async (req, res) => {
  * supplierId: int
  * @return Supplier || {}
  */
-router.put('/update-supplier/:id', async (req, res) => {
+router.put('/update/:id', async (req, res) => {
     try {
         const foundSupplier = await supplierService.getSupplier(req.params.id);
 
