@@ -4,4 +4,4 @@ function getDate(format = 'YYYY-MM-DD HH:mm:ssZ[Z]') {
     return dayjs().format(format);
 }
 
-module.exports = getDate;
+module.exports = { getDate };

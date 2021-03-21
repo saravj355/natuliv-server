@@ -1,5 +1,5 @@
-const uuid = require('./uuid');
-const date = require('./date');
-const passwordHash = require('./passwordHash');
+const UUID = require('./uuid');
+const Date = require('./date');
+const Hash = require('./hash');
 
-module.exports = { uuid, date, passwordHash };
+module.exports = { UUID, Date, Hash };
