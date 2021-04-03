@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define(
-        'user',
+        'identity_user',
         {
             id: {
                 autoIncrement: true,
@@ -8,29 +8,18 @@ module.exports = function (sequelize, DataTypes) {
                 allowNull: false,
                 primaryKey: true,
             },
-            userId: {
-                type: DataTypes.STRING(36),
-                allowNull: false,
-            },
-            name: {
-                type: DataTypes.STRING(45),
-                allowNull: false,
-            },
-            lastName: {
+            identityUserId: {
                 type: DataTypes.STRING(45),
                 allowNull: false,
             },
             email: {
-                type: DataTypes.STRING(50),
+                type: DataTypes.STRING(45),
                 allowNull: false,
+                unique: 'email_UNIQUE',
             },
             passwordHash: {
                 type: DataTypes.STRING(45),
                 allowNull: false,
-            },
-            lastUpdateDate: {
-                type: DataTypes.DATE,
-                allowNull: true,
             },
             creationDate: {
                 type: DataTypes.DATE,
@@ -38,41 +27,28 @@ module.exports = function (sequelize, DataTypes) {
             },
             lastLoginDate: {
                 type: DataTypes.DATE,
+                allowNull: false,
+            },
+            lastUpdateDate: {
+                type: DataTypes.DATE,
                 allowNull: true,
-            },
-            bornDate: {
-                type: DataTypes.DATEONLY,
-                allowNull: false,
-            },
-            gender: {
-                type: DataTypes.STRING(20),
-                allowNull: false,
-            },
-            userRoleId: {
-                type: DataTypes.INTEGER,
-                allowNull: false,
-                references: {
-                    model: 'user_role',
-                    key: 'id',
-                },
             },
             isActive: {
                 type: DataTypes.TINYINT,
                 allowNull: false,
-                defaultValue: 1,
             },
-            lastSurveyFillDate: {
-                type: DataTypes.DATE,
-                allowNull: true,
-            },
-            country: {
-                type: DataTypes.STRING(45),
+            identityUserRoleId: {
+                type: DataTypes.INTEGER,
                 allowNull: false,
+                references: {
+                    model: 'identity_user_role',
+                    key: 'id',
+                },
             },
         },
         {
             sequelize,
-            tableName: 'user',
+            tableName: 'identity_user',
             timestamps: false,
             indexes: [
                 {
@@ -82,9 +58,15 @@ module.exports = function (sequelize, DataTypes) {
                     fields: [{ name: 'id' }],
                 },
                 {
-                    name: 'FK_User_UserRole_idx',
+                    name: 'email_UNIQUE',
+                    unique: true,
                     using: 'BTREE',
-                    fields: [{ name: 'userRoleId' }],
+                    fields: [{ name: 'email' }],
+                },
+                {
+                    name: 'FK_IdentityUser_IdentityUserRole_idx',
+                    using: 'BTREE',
+                    fields: [{ name: 'identityUserRoleId' }],
                 },
             ],
         }

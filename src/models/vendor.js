@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define(
-        'supplier',
+        'vendor',
         {
             id: {
                 autoIncrement: true,
@@ -8,29 +8,18 @@ module.exports = function (sequelize, DataTypes) {
                 allowNull: false,
                 primaryKey: true,
             },
-            supplierId: {
+            vendorId: {
                 type: DataTypes.STRING(20),
                 allowNull: false,
+                unique: 'vendorId_UNIQUE',
             },
             name: {
                 type: DataTypes.STRING(45),
                 allowNull: false,
-                validate: {
-                    notEmpty: {
-                        args: true,
-                        msg: 'name is required',
-                    },
-                },
             },
             contactNumber: {
                 type: DataTypes.STRING(45),
                 allowNull: false,
-                validate: {
-                    notEmpty: {
-                        args: true,
-                        msg: 'contact number is required',
-                    },
-                },
             },
             websiteUrl: {
                 type: DataTypes.STRING(100),
@@ -40,15 +29,6 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.STRING(200),
                 allowNull: false,
             },
-            isActive: {
-                type: DataTypes.TINYINT,
-                allowNull: false,
-                defaultValue: 1,
-            },
-            creationDate: {
-                type: DataTypes.DATE,
-                allowNull: false,
-            },
             description: {
                 type: DataTypes.TEXT,
                 allowNull: true,
@@ -56,7 +36,7 @@ module.exports = function (sequelize, DataTypes) {
         },
         {
             sequelize,
-            tableName: 'supplier',
+            tableName: 'vendor',
             timestamps: false,
             indexes: [
                 {
@@ -64,6 +44,12 @@ module.exports = function (sequelize, DataTypes) {
                     unique: true,
                     using: 'BTREE',
                     fields: [{ name: 'id' }],
+                },
+                {
+                    name: 'vendorId_UNIQUE',
+                    unique: true,
+                    using: 'BTREE',
+                    fields: [{ name: 'vendorId' }],
                 },
             ],
         }

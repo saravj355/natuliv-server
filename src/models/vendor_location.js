@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define(
-        'survey_response',
+        'vendor_location',
         {
             id: {
                 autoIncrement: true,
@@ -8,35 +8,34 @@ module.exports = function (sequelize, DataTypes) {
                 allowNull: false,
                 primaryKey: true,
             },
-            buyerUserId: {
+            vendorId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: {
-                    model: 'buyer_user',
+                    model: 'vendor',
                     key: 'id',
                 },
             },
-            questionId: {
-                type: DataTypes.INTEGER,
-                allowNull: false,
-                references: {
-                    model: 'question',
-                    key: 'id',
-                },
-            },
-            response: {
-                type: DataTypes.STRING(40),
+            address: {
+                type: DataTypes.STRING(45),
                 allowNull: false,
             },
-            surveyResponseCount: {
-                type: DataTypes.INTEGER,
+            long: {
+                type: DataTypes.STRING(45),
                 allowNull: false,
-                defaultValue: 0,
+            },
+            lat: {
+                type: DataTypes.STRING(45),
+                allowNull: false,
+            },
+            city: {
+                type: DataTypes.STRING(45),
+                allowNull: false,
             },
         },
         {
             sequelize,
-            tableName: 'survey_response',
+            tableName: 'vendor_location',
             timestamps: false,
             indexes: [
                 {
@@ -46,14 +45,9 @@ module.exports = function (sequelize, DataTypes) {
                     fields: [{ name: 'id' }],
                 },
                 {
-                    name: 'FK_SurevyResponse_Question_idx',
+                    name: 'FK_SupplierLocation_Supplier_idx',
                     using: 'BTREE',
-                    fields: [{ name: 'questionId' }],
-                },
-                {
-                    name: 'FK_SurveyResponse_User_idx',
-                    using: 'BTREE',
-                    fields: [{ name: 'buyerUserId' }],
+                    fields: [{ name: 'vendorId' }],
                 },
             ],
         }

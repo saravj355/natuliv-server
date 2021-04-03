@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define(
-        'user_role',
+        'identity_user_role',
         {
             id: {
                 autoIncrement: true,
@@ -19,7 +19,7 @@ module.exports = function (sequelize, DataTypes) {
         },
         {
             sequelize,
-            tableName: 'user_role',
+            tableName: 'identity_user_role',
             timestamps: false,
             indexes: [
                 {

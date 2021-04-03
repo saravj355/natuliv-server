@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define(
-        'user_recommendation_variable',
+        'buyer_recommendation_variable',
         {
             id: {
                 autoIncrement: true,
@@ -8,11 +8,11 @@ module.exports = function (sequelize, DataTypes) {
                 allowNull: false,
                 primaryKey: true,
             },
-            userId: {
+            buyerId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: {
-                    model: 'user',
+                    model: 'buyer_user',
                     key: 'id',
                 },
             },
@@ -51,7 +51,7 @@ module.exports = function (sequelize, DataTypes) {
         },
         {
             sequelize,
-            tableName: 'user_recommendation_variable',
+            tableName: 'buyer_recommendation_variable',
             timestamps: false,
             indexes: [
                 {
@@ -61,27 +61,31 @@ module.exports = function (sequelize, DataTypes) {
                     fields: [{ name: 'id' }],
                 },
                 {
-                    name: 'FK_URV_RecommendationVariableCatalog_idx',
+                    name:
+                        'FK_UserRecomendationVariable_RecomendationVariableCatalog_idx',
                     using: 'BTREE',
                     fields: [{ name: 'hairShapeId' }],
                 },
                 {
-                    name: 'FK_URV_User_idx',
+                    name: 'FK_UserRecomendationVariable_User_idx',
                     using: 'BTREE',
-                    fields: [{ name: 'userId' }],
+                    fields: [{ name: 'buyerId' }],
                 },
                 {
-                    name: 'FK_URV_RecommendationVariableCatalog_h_idx',
+                    name:
+                        'FK_UserRecomendationVariable_RecomendationVariableCatalog_h_idx',
                     using: 'BTREE',
                     fields: [{ name: 'hairTypeId' }],
                 },
                 {
-                    name: 'FK_URV_RecommendationVariableCatalog_g_idx',
+                    name:
+                        'FK_UserRecomendationVariable_RecomendationVariableCatalog_g_idx',
                     using: 'BTREE',
                     fields: [{ name: 'genderId' }],
                 },
                 {
-                    name: 'FK_URV_RecommendationVariableCatalog_s_idx',
+                    name:
+                        'FK_UserRecomendationVariable_RecomendationVariableCatalog_s_idx',
                     using: 'BTREE',
                     fields: [{ name: 'skinTypeId' }],
                 },
