@@ -11,6 +11,7 @@ module.exports = function (sequelize, DataTypes) {
             identityUserId: {
                 type: DataTypes.STRING(45),
                 allowNull: false,
+                unique: 'identityUserId_UNIQUE',
             },
             email: {
                 type: DataTypes.STRING(45),
@@ -62,6 +63,12 @@ module.exports = function (sequelize, DataTypes) {
                     unique: true,
                     using: 'BTREE',
                     fields: [{ name: 'email' }],
+                },
+                {
+                    name: 'identityUserId_UNIQUE',
+                    unique: true,
+                    using: 'BTREE',
+                    fields: [{ name: 'identityUserId' }],
                 },
                 {
                     name: 'FK_IdentityUser_IdentityUserRole_idx',

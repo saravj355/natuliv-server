@@ -42,6 +42,14 @@ function initModels(sequelize) {
         as: 'buyer_recommendation_variables',
         foreignKey: 'buyerId',
     });
+    buyer_recommendation_variable.belongsTo(buyer_user, {
+        as: 'gender',
+        foreignKey: 'genderId',
+    });
+    buyer_user.hasMany(buyer_recommendation_variable, {
+        as: 'gender_buyer_recommendation_variables',
+        foreignKey: 'genderId',
+    });
     survey_response.belongsTo(buyer_user, {
         as: 'buyerUser',
         foreignKey: 'buyerUserId',
@@ -121,14 +129,6 @@ function initModels(sequelize) {
     recommendation_variable_catalog.hasMany(buyer_recommendation_variable, {
         as: 'skinType_buyer_recommendation_variables',
         foreignKey: 'skinTypeId',
-    });
-    buyer_recommendation_variable.belongsTo(recommendation_variable_catalog, {
-        as: 'gender',
-        foreignKey: 'genderId',
-    });
-    recommendation_variable_catalog.hasMany(buyer_recommendation_variable, {
-        as: 'gender_buyer_recommendation_variables',
-        foreignKey: 'genderId',
     });
     product.belongsTo(vendor, { as: 'vendor', foreignKey: 'vendorId' });
     vendor.hasMany(product, { as: 'products', foreignKey: 'vendorId' });

@@ -44,8 +44,8 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: {
-                    model: 'recommendation_variable_catalog',
-                    key: 'id',
+                    model: 'buyer_user',
+                    key: 'genderId',
                 },
             },
         },
@@ -61,33 +61,29 @@ module.exports = function (sequelize, DataTypes) {
                     fields: [{ name: 'id' }],
                 },
                 {
-                    name:
-                        'FK_UserRecomendationVariable_RecomendationVariableCatalog_idx',
-                    using: 'BTREE',
-                    fields: [{ name: 'hairShapeId' }],
-                },
-                {
-                    name: 'FK_UserRecomendationVariable_User_idx',
+                    name: 'FK_BRV_BuyerUser_idx',
                     using: 'BTREE',
                     fields: [{ name: 'buyerId' }],
                 },
                 {
-                    name:
-                        'FK_UserRecomendationVariable_RecomendationVariableCatalog_h_idx',
+                    name: 'FK_BRV_RVC_HS_idx',
+                    using: 'BTREE',
+                    fields: [{ name: 'hairShapeId' }],
+                },
+                {
+                    name: 'FK_BRV_RVC_HT_idx',
                     using: 'BTREE',
                     fields: [{ name: 'hairTypeId' }],
                 },
                 {
-                    name:
-                        'FK_UserRecomendationVariable_RecomendationVariableCatalog_g_idx',
-                    using: 'BTREE',
-                    fields: [{ name: 'genderId' }],
-                },
-                {
-                    name:
-                        'FK_UserRecomendationVariable_RecomendationVariableCatalog_s_idx',
+                    name: 'FK_BRV_RVC_ST_idx',
                     using: 'BTREE',
                     fields: [{ name: 'skinTypeId' }],
+                },
+                {
+                    name: 'FK_BRV_RVC_G_idx',
+                    using: 'BTREE',
+                    fields: [{ name: 'genderId' }],
                 },
             ],
         }
