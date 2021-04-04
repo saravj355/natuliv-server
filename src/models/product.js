@@ -11,11 +11,22 @@ module.exports = function (sequelize, DataTypes) {
             productId: {
                 type: DataTypes.STRING(36),
                 allowNull: false,
-                unique: 'productId_UNIQUE',
+                validate: {
+                    notEmpty: {
+                        args: true,
+                        msg: 'product_id is required',
+                    },
+                },
             },
             name: {
                 type: DataTypes.STRING(50),
                 allowNull: false,
+                validate: {
+                    notEmpty: {
+                        args: true,
+                        msg: 'name is required',
+                    },
+                },
             },
             description: {
                 type: DataTypes.TEXT,
@@ -24,18 +35,28 @@ module.exports = function (sequelize, DataTypes) {
             price: {
                 type: DataTypes.DOUBLE,
                 allowNull: false,
+                validate: {
+                    min: 0,
+                    isNumeric: true,
+                },
             },
-            vendorId: {
+            supplierId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: {
-                    model: 'vendor',
+                    model: 'supplier',
                     key: 'id',
                 },
             },
             imagePath: {
                 type: DataTypes.STRING(200),
                 allowNull: false,
+                validate: {
+                    notEmpty: {
+                        args: true,
+                        msg: 'image is required',
+                    },
+                },
             },
             productCategoryId: {
                 type: DataTypes.INTEGER,
@@ -63,12 +84,6 @@ module.exports = function (sequelize, DataTypes) {
                     fields: [{ name: 'id' }],
                 },
                 {
-                    name: 'productId_UNIQUE',
-                    unique: true,
-                    using: 'BTREE',
-                    fields: [{ name: 'productId' }],
-                },
-                {
                     name: 'FK_Product_ProductCategory_idx',
                     using: 'BTREE',
                     fields: [{ name: 'productCategoryId' }],
@@ -76,7 +91,7 @@ module.exports = function (sequelize, DataTypes) {
                 {
                     name: 'FK_Product_Supplier_idx',
                     using: 'BTREE',
-                    fields: [{ name: 'vendorId' }],
+                    fields: [{ name: 'supplierId' }],
                 },
             ],
         }

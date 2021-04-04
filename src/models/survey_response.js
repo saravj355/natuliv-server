@@ -8,11 +8,11 @@ module.exports = function (sequelize, DataTypes) {
                 allowNull: false,
                 primaryKey: true,
             },
-            buyerUserId: {
+            userId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: {
-                    model: 'buyer_user',
+                    model: 'user',
                     key: 'id',
                 },
             },
@@ -46,14 +46,14 @@ module.exports = function (sequelize, DataTypes) {
                     fields: [{ name: 'id' }],
                 },
                 {
-                    name: 'FK_SurevyResponse_Question_idx',
+                    name: 'FK_SurveyResponse_Question_idx',
                     using: 'BTREE',
                     fields: [{ name: 'questionId' }],
                 },
                 {
                     name: 'FK_SurveyResponse_User_idx',
                     using: 'BTREE',
-                    fields: [{ name: 'buyerUserId' }],
+                    fields: [{ name: 'userId' }],
                 },
             ],
         }
