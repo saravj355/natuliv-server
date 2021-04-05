@@ -42,8 +42,8 @@ async function getProducts(filter = {}) {
     return ProductModel.findAll({
         include: [
             {
-                model: models.supplier,
-                as: 'supplier',
+                model: models.vendor,
+                as: 'vendor',
             },
             {
                 model: models.product_category,

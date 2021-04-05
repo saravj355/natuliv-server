@@ -1,8 +1,8 @@
 const { models } = require('../../db');
 const { Op } = require('sequelize');
-const UserModel = models.user;
+const VendorModel = models.vendor;
 
-function handleUsersFilters(filter) {
+function handleVendorsFilters(filter) {
     /* default filters */
     const filters = {
         where: {},
@@ -29,16 +29,13 @@ function handleUsersFilters(filter) {
     return filters;
 }
 
-async function getUsers(filter = {}) {
-    const filters = handleUsersFilters(filter);
+async function getVendors(filter = {}) {
+    const filters = handleVendorsFilters(filter);
 
-    return UserModel.findAll({
+    return VendorModel.findAll({
         where: filters.where,
         limit: filters.limit,
-        attributes: {
-            exclude: ['passwordHash'],
-        },
     });
 }
 
-module.exports = getUsers;
+module.exports = getVendors;

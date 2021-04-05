@@ -1,12 +1,12 @@
 const router = require('express').Router();
 
 const products = require('./products');
-const suppliers = require('./suppliers');
-const users = require('./users');
+const vendors = require('./vendors');
+const buyers = require('./buyers');
 
 //routes
 router.use('/products', products);
-router.use('/suppliers', suppliers);
-router.use('/users', users);
+router.use('/vendors', vendors);
+router.use('/buyers', buyers);
 
 module.exports = router;
