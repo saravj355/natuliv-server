@@ -3,6 +3,7 @@ module.exports = function (sequelize, DataTypes) {
         'buyer_user_gender',
         {
             id: {
+                autoIncrement: true,
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 primaryKey: true,

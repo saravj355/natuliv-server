@@ -28,7 +28,7 @@ module.exports = function (sequelize, DataTypes) {
             },
             lastLoginDate: {
                 type: DataTypes.DATE,
-                allowNull: false,
+                allowNull: true,
             },
             lastUpdateDate: {
                 type: DataTypes.DATE,
