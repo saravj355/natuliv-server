@@ -37,6 +37,7 @@ module.exports = function (sequelize, DataTypes) {
             isActive: {
                 type: DataTypes.TINYINT,
                 allowNull: false,
+                defaultValue: 1,
             },
             identityUserRoleId: {
                 type: DataTypes.INTEGER,
