@@ -1,12 +1,11 @@
-const Utils = require('../../utilities');
 const { models } = require('../../db');
-const BuyerModel = models.buyer_user;
+const BuyerUserModel = models.buyer_user;
+const identityUserService = require('../identityUserService');
 
-async function createBuyer(newBuyer) {
-    newBuyer.buyerId = Utils.UUID.generate();
-    newBuyer.creationDate = Utils.Date.getDate();
-    newBuyer.passwordHash = Utils.Hash.generate(newBuyer.password);
-    return BuyerModel.create(newBuyer);
+async function createBuyer(newBuyerUser) {
+    const identityUser = await identityUserService.createUser(newBuyerUser);
+    newBuyerUser.identityUserId = identityUser.id;
+    return BuyerUserModel.create(newBuyerUser);
 }
 
 module.exports = createBuyer;
