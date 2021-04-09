@@ -25,7 +25,7 @@ router.get('/:id', async (req, res) => {
  * req: filter: {}
  * @return Vendors || {}
  */
-router.post('/search', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const vendors = await vendorService.getVendors(req.body);
 

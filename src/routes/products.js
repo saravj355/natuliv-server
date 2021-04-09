@@ -25,7 +25,7 @@ router.get('/:id', async (req, res) => {
  * req : filter: {}
  * @return Products []
  */
-router.post('/search', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const products = await productService.getProducts(req.body);
 
