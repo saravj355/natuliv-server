@@ -12,6 +12,10 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.STRING(45),
                 allowNull: false,
             },
+            displayName: {
+                type: DataTypes.STRING(45),
+                allowNull: false,
+            },
         },
         {
             sequelize,
