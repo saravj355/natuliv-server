@@ -35,20 +35,12 @@ function initModels(sequelize) {
     var vendor_user = _vendor_user(sequelize, DataTypes);
 
     buyer_recommendation_variable.belongsTo(buyer_user, {
-        as: 'buyer',
-        foreignKey: 'buyerId',
+        as: 'buyerUser',
+        foreignKey: 'buyerUserId',
     });
     buyer_user.hasMany(buyer_recommendation_variable, {
         as: 'buyer_recommendation_variables',
-        foreignKey: 'buyerId',
-    });
-    buyer_recommendation_variable.belongsTo(buyer_user, {
-        as: 'gender',
-        foreignKey: 'genderId',
-    });
-    buyer_user.hasMany(buyer_recommendation_variable, {
-        as: 'gender_buyer_recommendation_variables',
-        foreignKey: 'genderId',
+        foreignKey: 'buyerUserId',
     });
     survey_response.belongsTo(buyer_user, {
         as: 'buyerUser',
