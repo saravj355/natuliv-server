@@ -2,34 +2,34 @@ const router = require('express').Router();
 const buyerService = require('../services/buyerService');
 
 /**
- * Get an buyer
- * BuyerId: int
- * @return Buyer || {}
+ * Get buyers
+ * req : filter: {}
+ * @return Buyers || {}
  */
-router.get('/:id', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const foundBuyer = await buyerService.getBuyer(req.params.id);
+        const foundBuyers = await buyerService.findBuyers(req.body);
 
-        if (!foundBuyer) {
-            throw new Error('Buyer not found');
-        }
-
-        res.send(foundBuyer);
+        res.send(foundBuyers);
     } catch (error) {
         res.status(400).send(`An error ocurred: ${error}`);
     }
 });
 
 /**
- * Get all Buyers
- * req : filter: {}
- * @return Buyers || {}
+ * Get buyer
+ * id: int
+ * @return Buyer || {}
  */
-router.get('/', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
-        const Buyers = await buyerService.getBuyers(req.body);
+        const foundBuyer = await buyerService.findBuyer(req.params.id);
 
-        res.send(Buyers);
+        if (!foundBuyer) {
+            throw new Error('Buyer not found');
+        }
+
+        res.send(foundBuyer);
     } catch (error) {
         res.status(400).send(`An error ocurred: ${error}`);
     }
@@ -52,12 +52,12 @@ router.post('/create', async (req, res) => {
 
 /**
  * Update buyer
- * BuyerId: int
+ * id: int
  * @return Buyer || {}
  */
 router.put('/update/:id', async (req, res) => {
     try {
-        const foundBuyer = await buyerService.getBuyer(req.params.id);
+        const foundBuyer = await buyerService.findBuyer(req.params.id);
 
         if (!foundBuyer) {
             throw new Error('Buyer not found');

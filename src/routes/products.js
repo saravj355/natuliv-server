@@ -2,34 +2,34 @@ const router = require('express').Router();
 const productService = require('../services/productService');
 
 /**
- * Get product
- * productId: int
- * @return Product
+ * Get products
+ * req : filter: {}
+ * @return Products || {}
  */
-router.get('/:id', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const foundProduct = await productService.getProduct(req.params.id);
+        const foundProducts = await productService.findProducts(req.body);
 
-        if (!foundProduct) {
-            throw new Error('Product not found');
-        }
-
-        res.send(foundProduct);
+        res.send(foundProducts);
     } catch (error) {
         res.status(400).send(`An error ocurred: ${error}`);
     }
 });
 
 /**
- * Get all products
- * req : filter: {}
- * @return Products []
+ * Get product
+ * id: int
+ * @return Product
  */
-router.post('/', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
-        const products = await productService.getProducts(req.body);
+        const foundProduct = await productService.findProduct(req.params.id);
 
-        res.send(products);
+        if (!foundProduct) {
+            throw new Error('Product not found');
+        }
+
+        res.send(foundProduct);
     } catch (error) {
         res.status(400).send(`An error ocurred: ${error}`);
     }
@@ -52,12 +52,12 @@ router.post('/create', async (req, res) => {
 
 /**
  * Update product
- * productId: int
+ * id: int
  * @return Product || {}
  */
 router.put('/update/:id', async (req, res) => {
     try {
-        const foundProduct = await productService.getProduct(req.params.id);
+        const foundProduct = await productService.findProduct(req.params.id);
 
         if (!foundProduct) {
             throw new Error('Product not found');

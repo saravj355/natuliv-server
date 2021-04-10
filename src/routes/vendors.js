@@ -2,34 +2,34 @@ const router = require('express').Router();
 const vendorService = require('../services/vendorService');
 
 /**
- * Get vendor
- * vendorId: int
- * @return Vendor
+ * Get vendors
+ * req: filter: {}
+ * @return Vendors || {}
  */
-router.get('/:id', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const foundVendor = await vendorService.getVendor(req.params.id);
+        const foundVendors = await vendorService.findVendors(req.body);
 
-        if (!foundVendor) {
-            throw new Error('Vendor not found');
-        }
-
-        res.send(foundVendor);
+        res.send(foundVendors);
     } catch (error) {
         res.status(400).send(`An error ocurred: ${error}`);
     }
 });
 
 /**
- * Get all vendors
- * req: filter: {}
- * @return Vendors || {}
+ * Get vendor
+ * vendorId: int
+ * @return Vendor
  */
-router.post('/', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
-        const vendors = await vendorService.getVendors(req.body);
+        const foundVendor = await vendorService.findVendor(req.params.id);
 
-        res.send(vendors);
+        if (!foundVendor) {
+            throw new Error('Vendor not found');
+        }
+
+        res.send(foundVendor);
     } catch (error) {
         res.status(400).send(`An error ocurred: ${error}`);
     }
@@ -57,7 +57,7 @@ router.post('/create', async (req, res) => {
  */
 router.put('/update/:id', async (req, res) => {
     try {
-        const foundVendor = await vendorService.getVendor(req.params.id);
+        const foundVendor = await vendorService.findVendor(req.params.id);
 
         if (!foundVendor) {
             throw new Error('Vendor not found');
