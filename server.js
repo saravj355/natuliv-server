@@ -6,7 +6,6 @@ const database = require('./src/db/connection');
 const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT;
-
 const routes = require('./src/routes');
 
 //body parser middleware
@@ -17,11 +16,6 @@ app.use(cors());
 
 //routes
 app.use(routes);
-
-// Set header to all requests
-// app.use((res, req, next) => {
-//     res.setHeader('X-Total-Count', 1);
-// });
 
 async function init() {
     await database.connection();
