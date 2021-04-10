@@ -8,7 +8,7 @@ module.exports = function (sequelize, DataTypes) {
                 allowNull: false,
                 primaryKey: true,
             },
-            buyerId: {
+            buyerUserId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: {
@@ -40,14 +40,6 @@ module.exports = function (sequelize, DataTypes) {
                     key: 'id',
                 },
             },
-            genderId: {
-                type: DataTypes.INTEGER,
-                allowNull: false,
-                references: {
-                    model: 'buyer_user',
-                    key: 'genderId',
-                },
-            },
         },
         {
             sequelize,
@@ -63,7 +55,7 @@ module.exports = function (sequelize, DataTypes) {
                 {
                     name: 'FK_BRV_BuyerUser_idx',
                     using: 'BTREE',
-                    fields: [{ name: 'buyerId' }],
+                    fields: [{ name: 'buyerUserId' }],
                 },
                 {
                     name: 'FK_BRV_RVC_HS_idx',
@@ -79,11 +71,6 @@ module.exports = function (sequelize, DataTypes) {
                     name: 'FK_BRV_RVC_ST_idx',
                     using: 'BTREE',
                     fields: [{ name: 'skinTypeId' }],
-                },
-                {
-                    name: 'FK_BRV_RVC_G_idx',
-                    using: 'BTREE',
-                    fields: [{ name: 'genderId' }],
                 },
             ],
         }
