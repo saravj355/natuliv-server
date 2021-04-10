@@ -4,7 +4,7 @@ Natuliv is a web application focused on promoting natural products and its suppl
 
 this is the server side of Natuliv app
 
-## Command to init the project 
+## Command to initialize the project 
 
 ```sh
 yarn run start
