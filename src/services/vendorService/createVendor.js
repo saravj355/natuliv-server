@@ -1,14 +1,27 @@
-const Utils = require('../../utilities');
 const { models } = require('../../db');
-const identityBuyerModel = models.identity_Buyer;
-const vendorBuyerModel = models.identity_Buyer;
+const Utils = require('../../utilities');
+const vendorUserModel = models.vendor_user;
+const vendorModel = models.vendor;
+const IdentityUserService = require('../identityUserService');
 
-async function createVendor(newVendor) {
-    newVendor.vendorId = Utils.UUID.generate();
-    newVendor.passwordHash = Utils.Hash.generate(newVendor.password);
-    newVendor.creationDate = Utils.Date.getDate();
-    identityBuyerModel.create(newVendor);
-    vendorBuyerModel.create(newVendor);
+async function createVendorUser({ vendor, identityUser }) {
+    let vendorUser = {};
+
+    const newIdentityUser = await IdentityUserService.createIdentityUser(
+        identityUser
+    );
+
+    const newVendor = await createVendor(vendor);
+
+    vendorUser.vendorId = newVendor.id;
+    vendorUser.identityUserId = newIdentityUser.id;
+
+    return vendorUserModel.create(vendorUser);
 }
 
-module.exports = createVendor;
+async function createVendor(vendor) {
+    vendor.vendorId = Utils.UUID.generate();
+    return vendorModel.create(vendor);
+}
+
+module.exports = createVendorUser;

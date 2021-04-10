@@ -1,6 +1,6 @@
 const Utils = require('../../utilities');
 const { models } = require('../../db');
-const identityUserModel = models.identity_user;
+const IdentityUserModel = models.identity_user;
 
 async function createIdentityUser(newIdentityUser) {
     newIdentityUser.identityUserId = Utils.UUID.generate();
@@ -8,8 +8,7 @@ async function createIdentityUser(newIdentityUser) {
         newIdentityUser.password
     );
     newIdentityUser.creationDate = Utils.Date.getDate();
-    newIdentityUser.lastLoginDate = Utils.Date.getDate();
-    return identityUserModel.create(newIdentityUser);
+    return IdentityUserModel.create(newIdentityUser);
 }
 
 module.exports = createIdentityUser;
