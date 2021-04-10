@@ -1,11 +1,11 @@
 const createBuyer = require('./createBuyer');
-const getBuyer = require('./getBuyer');
-const getBuyers = require('./getBuyers');
+const findBuyer = require('./findBuyer');
+const findBuyers = require('./findBuyers');
 const updateBuyer = require('./updateBuyer');
 
 module.exports = {
     createBuyer,
-    getBuyer,
-    getBuyers,
+    findBuyer,
+    findBuyers,
     updateBuyer,
 };

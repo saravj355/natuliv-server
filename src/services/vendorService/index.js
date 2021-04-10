@@ -1,11 +1,11 @@
-const getVendor = require('./getVendor');
-const getVendors = require('./getVendors');
+const findVendor = require('./findVendor');
+const findVendors = require('./findVendors');
 const createVendor = require('./createVendor');
 const updateVendor = require('./updateVendor');
 
 module.exports = {
-    getVendor,
-    getVendors,
+    findVendor,
+    findVendors,
     createVendor,
     updateVendor,
 };

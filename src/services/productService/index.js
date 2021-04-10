@@ -1,11 +1,11 @@
-const getProducts = require('./getProducts');
-const getProduct = require('./getProduct');
+const findProducts = require('./findProducts');
+const findProduct = require('./findProduct');
 const createProduct = require('./createProduct');
 const updateProduct = require('./updateProduct');
 
 module.exports = {
-    getProducts,
+    findProducts,
     createProduct,
-    getProduct,
+    findProduct,
     updateProduct,
 };

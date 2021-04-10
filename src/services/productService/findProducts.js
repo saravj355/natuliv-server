@@ -36,7 +36,7 @@ function handleProductsFilters(filter) {
     return filters;
 }
 
-async function getProducts(filter = {}) {
+async function findProducts(filter = {}) {
     const filters = handleProductsFilters(filter);
 
     return ProductModel.findAll({
@@ -55,4 +55,4 @@ async function getProducts(filter = {}) {
     });
 }
 
-module.exports = getProducts;
+module.exports = findProducts;

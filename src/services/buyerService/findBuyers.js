@@ -1,5 +1,4 @@
 const { models } = require('../../db');
-const { Op } = require('sequelize');
 const BuyerModel = models.buyer_user;
 
 function handleBuyersFilters(filter) {
@@ -16,29 +15,29 @@ function handleBuyersFilters(filter) {
 
     filters.where = filter;
 
-    if (filter.isActive === undefined) {
-        filters.where.isActive = true;
-    }
-
-    if (filter.name) {
-        filters.where.name = {
-            [Op.like]: `%${filter.name}%`,
-        };
-    }
-
     return filters;
 }
 
-async function getBuyers(filter = {}) {
+async function findBuyers(filter = {}) {
     const filters = handleBuyersFilters(filter);
 
     return BuyerModel.findAll({
         where: filters.where,
         limit: filters.limit,
-        attributes: {
-            exclude: ['passwordHash'],
-        },
+        include: [
+            {
+                model: models.identity_user,
+                as: 'identityUser',
+                attributes: {
+                    exclude: ['passwordHash'],
+                },
+            },
+            {
+                model: models.buyer_user_gender,
+                as: 'gender',
+            },
+        ],
     });
 }
 
-module.exports = getBuyers;
+module.exports = findBuyers;
