@@ -7,7 +7,9 @@
     "private": true,
     "scripts": {
         "start": "nodemon server.js",
-        "debug": "nodemon --inspect server.js"
+        "debug": "nodemon --inspect server.js",
+        "lint": "npx eslint .",
+        "prettier": "prettier --write ."
     },
     "dependencies": {
         "cors": "^2.8.5",
