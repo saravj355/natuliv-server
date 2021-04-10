@@ -3,7 +3,7 @@ const ProductModel = models.product;
 
 async function updateProduct(productId, product) {
     return ProductModel.update(product, {
-        where: { productId: productId },
+        where: { id: productId },
     });
 }
 
