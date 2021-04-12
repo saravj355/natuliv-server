@@ -1,24 +1,11 @@
 const { models } = require('../../db');
-const VendorUserModel = models.vendor_user;
+const VendorModel = models.vendor;
 
-async function findVendor(vendorId) {
-    return VendorUserModel.findOne({
+async function findVendor(id) {
+    return VendorModel.findOne({
         where: {
-            id: vendorId,
+            id: id,
         },
-        include: [
-            {
-                model: models.identity_user,
-                as: 'identityUser',
-                attributes: {
-                    exclude: ['passwordHash'],
-                },
-            },
-            {
-                model: models.vendor,
-                as: 'vendor',
-            },
-        ],
     });
 }
 
