@@ -6,7 +6,8 @@
     "license": "MIT",
     "private": true,
     "scripts": {
-        "start": "nodemon server.js",
+        "kill_port": "npx kill-port 5000",
+        "start": "yarn kill_port && nodemon server.js",
         "debug": "nodemon --inspect server.js",
         "lint": "npx eslint .",
         "prettier": "prettier --write ."
