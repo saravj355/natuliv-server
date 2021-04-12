@@ -8,7 +8,7 @@ const productService = require('../services/productService');
  */
 router.get('/', async (req, res) => {
     try {
-        const foundProducts = await productService.findProducts(req.body);
+        const foundProducts = await productService.findProducts(req.query);
 
         res.send(foundProducts);
     } catch (error) {
