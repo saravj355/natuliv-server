@@ -1,36 +1,17 @@
-const { models } = require('../../db');
 const { Op } = require('sequelize');
+const { models } = require('../../db');
+const Utils = require('../../utilities');
 const ProductModel = models.product;
 
 function handleProductsFilters(filter) {
-    /* default filters */
-    const filters = {
-        where: {},
-        limit: 10,
-    };
+    const filters = Utils.handleFilters(filter);
 
-    if (filter.limit) {
-        filters.limit = filter.limit;
-        delete filter.limit;
-    }
-
-    filters.where = filter;
-
-    if (filter.isActive === undefined) {
-        filters.where.isActive = true;
-    }
-
-    if (filter.price) {
-        filters.where.price = {
-            [Op.lt]: filter.price.lowerThan || Number.MAX_VALUE,
-            [Op.gt]: filter.price.greaterThan || -1,
-        };
+    if (filter.vendorId) {
+        filters.where.vendorId = filter.vendorId;
     }
 
     if (filter.name) {
-        filters.where.name = {
-            [Op.like]: `%${filter.name}%`,
-        };
+        filters.where.name = { [Op.like]: `%${filter.name}%` };
     }
 
     return filters;
@@ -51,7 +32,9 @@ async function findProducts(filter = {}) {
             },
         ],
         where: filters.where,
+        offset: filters.offset,
         limit: filters.limit,
+        order: [filters.sort],
     });
 }
 
