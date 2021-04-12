@@ -33,6 +33,11 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.TEXT,
                 allowNull: true,
             },
+            isActive: {
+                type: DataTypes.TINYINT,
+                allowNull: false,
+                defaultValue: 1,
+            },
         },
         {
             sequelize,
