@@ -8,7 +8,7 @@ const vendorService = require('../services/vendorService');
  */
 router.get('/', async (req, res) => {
     try {
-        const foundVendors = await vendorService.findVendors(req.body);
+        const foundVendors = await vendorService.findVendors(req.query);
 
         res.send(foundVendors);
     } catch (error) {
