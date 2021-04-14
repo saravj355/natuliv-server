@@ -7,6 +7,10 @@ function handleFilters(filter) {
         limit: filter.limit ? parseInt(filter.limit) : 9,
     };
 
+    if (filter.isActive) {
+        filters.where.isActive = JSON.parse(filter.isActive);
+    }
+
     if (filter.sortBy) {
         filters.sort[0] = filter.sortBy;
     }

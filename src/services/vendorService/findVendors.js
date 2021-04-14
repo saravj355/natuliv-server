@@ -1,25 +1,13 @@
 const { models } = require('../../db');
 const { Op } = require('sequelize');
-const VendorUserModel = models.vendor_user;
+const Utils = require('../../utilities');
+const VendorModel = models.vendor;
 
 function handleVendorsFilters(filter) {
-    /* default filters */
-    const filters = {
-        where: {},
-        limit: 10,
-    };
-
-    if (filter.limit) {
-        filters.limit = filter.limit;
-        delete filter.limit;
-    }
-
-    filters.where = filter;
+    const filters = Utils.handleFilters(filter);
 
     if (filter.name) {
-        filters.where.name = {
-            [Op.like]: `%${filter.name}%`,
-        };
+        filters.where.name = { [Op.like]: `%${filter.name}%` };
     }
 
     return filters;
@@ -27,23 +15,11 @@ function handleVendorsFilters(filter) {
 
 async function findVendors(filter = {}) {
     const filters = handleVendorsFilters(filter);
-
-    return VendorUserModel.findAll({
+    return VendorModel.findAll({
         where: filters.where,
+        offset: filters.offset,
         limit: filters.limit,
-        include: [
-            {
-                model: models.identity_user,
-                as: 'identityUser',
-                attributes: {
-                    exclude: ['passwordHash'],
-                },
-            },
-            {
-                model: models.vendor,
-                as: 'vendor',
-            },
-        ],
+        order: [filters.sort],
     });
 }
 
