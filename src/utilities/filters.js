@@ -1,9 +1,7 @@
 function handleFilters(filter) {
     /* default filters */
     const filters = {
-        where: {
-            isActive: true,
-        },
+        where: {},
         offset: filter.offset ? parseInt(filter.offset) : 0,
         sort: ['id', 'ASC'],
         limit: filter.limit ? parseInt(filter.limit) : 9,
