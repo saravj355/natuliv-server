@@ -1,5 +1,8 @@
 const router = require('express').Router();
 const productService = require('../services/productService');
+const categories = require('./categories');
+
+router.use('/categories', categories);
 
 /**
  * Get products
