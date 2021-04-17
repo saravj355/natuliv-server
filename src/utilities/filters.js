@@ -1,3 +1,5 @@
+const { Op } = require('sequelize');
+
 function handleFilters(filter) {
     /* default filters */
     const filters = {
@@ -9,6 +11,10 @@ function handleFilters(filter) {
 
     if (filter.isActive) {
         filters.where.isActive = JSON.parse(filter.isActive);
+    }
+
+    if (filter.name) {
+        filters.where.name = { [Op.like]: `%${filter.name}%` };
     }
 
     if (filter.sortBy) {
