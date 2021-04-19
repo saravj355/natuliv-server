@@ -11,7 +11,7 @@ router.use('/categories', categories);
  */
 router.get('/', async (req, res) => {
     try {
-        const foundProducts = await productService.findProducts(req.query);
+        const foundProducts = await productService.findAll(req.query);
 
         res.send(foundProducts);
     } catch (error) {
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
  */
 router.get('/:id', async (req, res) => {
     try {
-        const foundProduct = await productService.findProduct(req.params.id);
+        const foundProduct = await productService.findOne(req.params.id);
 
         if (!foundProduct) {
             throw new Error('Product not found');
@@ -45,7 +45,7 @@ router.get('/:id', async (req, res) => {
  */
 router.post('/create', async (req, res) => {
     try {
-        const product = await productService.createProduct(req.body);
+        const product = await productService.create(req.body);
 
         res.send(product);
     } catch (error) {
@@ -60,13 +60,13 @@ router.post('/create', async (req, res) => {
  */
 router.put('/update/:id', async (req, res) => {
     try {
-        const foundProduct = await productService.findProduct(req.params.id);
+        const foundProduct = await productService.findOne(req.params.id);
 
         if (!foundProduct) {
             throw new Error('Product not found');
         }
 
-        await productService.updateProduct(req.params.id, req.body);
+        await productService.update(req.params.id, req.body);
 
         res.send('Product has been updated');
     } catch (error) {

@@ -4,8 +4,8 @@ const createProduct = require('./createProduct');
 const updateProduct = require('./updateProduct');
 
 module.exports = {
-    findProducts,
-    createProduct,
-    findProduct,
-    updateProduct,
+    create: createProduct,
+    findOne: findProduct,
+    findAll: findProducts,
+    update: updateProduct,
 };

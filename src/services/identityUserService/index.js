@@ -1,4 +1,11 @@
-const createIdentityUser = require('./createIdentityUser');
-const updateIdentityUser = require('./updateIdentityUser');
+const createUser = require('./createUser');
+const updateUser = require('./updateUser');
+const findUser = require('./findUser');
+const findUsers = require('./findUsers');
 
-module.exports = { createIdentityUser, updateIdentityUser };
+module.exports = {
+    create: createUser,
+    update: updateUser,
+    findOne: findUser,
+    findAll: findUsers,
+};

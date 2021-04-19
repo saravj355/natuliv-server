@@ -4,8 +4,8 @@ const createVendor = require('./createVendor');
 const updateVendor = require('./updateVendor');
 
 module.exports = {
-    findVendor,
-    findVendors,
-    createVendor,
-    updateVendor,
+    create: createVendor,
+    findOne: findVendor,
+    findAll: findVendors,
+    update: updateVendor,
 };

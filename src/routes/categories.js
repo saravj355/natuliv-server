@@ -8,7 +8,7 @@ const categoryService = require('../services/categoryService');
  */
 router.get('/', async (req, res) => {
     try {
-        const foundCategories = await categoryService.findCategories(req.query);
+        const foundCategories = await categoryService.findAll(req.query);
 
         res.send(foundCategories);
     } catch (error) {

@@ -4,8 +4,8 @@ const findBuyers = require('./findBuyers');
 const updateBuyer = require('./updateBuyer');
 
 module.exports = {
-    createBuyer,
-    findBuyer,
-    findBuyers,
-    updateBuyer,
+    create: createBuyer,
+    findOne: findBuyer,
+    findAll: findBuyers,
+    update: updateBuyer,
 };

@@ -8,7 +8,7 @@ const vendorService = require('../services/vendorService');
  */
 router.get('/', async (req, res) => {
     try {
-        const foundVendors = await vendorService.findVendors(req.query);
+        const foundVendors = await vendorService.findAll(req.query);
 
         res.send(foundVendors);
     } catch (error) {
@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
  */
 router.get('/:id', async (req, res) => {
     try {
-        const foundVendor = await vendorService.findVendor(req.params.id);
+        const foundVendor = await vendorService.findOne(req.params.id);
 
         if (!foundVendor) {
             throw new Error('Vendor not found');
@@ -42,7 +42,7 @@ router.get('/:id', async (req, res) => {
  */
 router.post('/create', async (req, res) => {
     try {
-        const vendor = await vendorService.createVendor(req.body);
+        const vendor = await vendorService.create(req.body);
 
         res.send(vendor);
     } catch (error) {
@@ -57,13 +57,13 @@ router.post('/create', async (req, res) => {
  */
 router.put('/update/:id', async (req, res) => {
     try {
-        const foundVendor = await vendorService.findVendor(req.params.id);
+        const foundVendor = await vendorService.findOne(req.params.id);
 
         if (!foundVendor) {
             throw new Error('Vendor not found');
         }
 
-        await vendorService.updateVendor(req.params.id, req.body);
+        await vendorService.update(req.params.id, req.body);
 
         res.send('Vendor has been updated');
     } catch (error) {
