@@ -1,9 +1,16 @@
 const { models } = require('../../db');
+const { Op } = require('sequelize');
 const Utils = require('../../utilities');
 const VendorModel = models.vendor;
 
 function handleVendorsFilters(filter) {
-    return Utils.handleFilters(filter);
+    const filters = Utils.handleFilters(filter);
+
+    if (filter.name) {
+        filters.where.name = { [Op.like]: `%${filter.name}%` };
+    }
+
+    return filters;
 }
 
 async function findVendors(filter = {}) {

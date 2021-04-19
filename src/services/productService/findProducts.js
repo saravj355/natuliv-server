@@ -1,4 +1,5 @@
 const { models } = require('../../db');
+const { Op } = require('sequelize');
 const Utils = require('../../utilities');
 const ProductModel = models.product;
 
@@ -11,6 +12,10 @@ function handleProductsFilters(filter) {
 
     if (filter.productCategoryId) {
         filters.where.productCategoryId = filter.productCategoryId;
+    }
+
+    if (filter.name) {
+        filters.where.name = { [Op.like]: `%${filter.name}%` };
     }
 
     return filters;
