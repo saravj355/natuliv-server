@@ -8,6 +8,7 @@ function handleProductsFilters(filter) {
     if (filter.vendorId) {
         filters.where.vendorId = filter.vendorId;
     }
+
     if (filter.productCategoryId) {
         filters.where.productCategoryId = filter.productCategoryId;
     }

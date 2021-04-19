@@ -1,19 +1,14 @@
 const { models } = require('../../db');
+const { Op } = require('sequelize');
+const Utils = require('../../utilities');
 const BuyerModel = models.buyer_user;
 
 function handleBuyersFilters(filter) {
-    /* default filters */
-    const filters = {
-        where: {},
-        limit: 10,
-    };
+    const filters = Utils.handleFilters(filter);
 
-    if (filter.limit) {
-        filters.limit = filter.limit;
-        delete filter.limit;
+    if (filter.fullName) {
+        filters.where.fullName = { [Op.like]: `%${filter.fullName}%` };
     }
-
-    filters.where = filter;
 
     return filters;
 }

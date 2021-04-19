@@ -1,7 +1,7 @@
 const { models } = require('../../db');
 const ProductModel = models.product;
 
-async function findProduct(productId) {
+async function findProduct(id) {
     return ProductModel.findOne({
         include: [
             {
@@ -14,7 +14,7 @@ async function findProduct(productId) {
             },
         ],
         where: {
-            id: productId,
+            id: id,
         },
     });
 }

@@ -1,10 +1,10 @@
 const { models } = require('../../db');
 const BuyerModel = models.buyer_user;
 
-async function findBuyer(buyerId) {
+async function findBuyer(id) {
     return BuyerModel.findOne({
         where: {
-            id: buyerId,
+            id: id,
         },
         include: [
             {
