@@ -15,7 +15,14 @@ async function findProductsByFilters(filter = {}) {
         filters.where.name = { [Op.like]: `%${filter.name}%` };
     }
 
-    filters.where = filter;
+    if (filter.vendorId) {
+        filters.where.vendorId = filter.vendorId;
+    }
+
+    if (filter.categoryId) {
+        filters.where.productCategoryId = filter.categoryId;
+    }
+
     return filters;
 }
 
