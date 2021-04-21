@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const buyerService = require('../services/buyerService');
+const buyerService = require('../../services/buyerService');
 
 /**
  * Get buyers

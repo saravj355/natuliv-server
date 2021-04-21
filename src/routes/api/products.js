@@ -1,8 +1,5 @@
 const router = require('express').Router();
-const productService = require('../services/productService');
-const categories = require('./categories');
-
-router.use('/categories', categories);
+const productService = require('../../services/productService');
 
 /**
  * Get products
@@ -43,7 +40,7 @@ router.get('/:id', async (req, res) => {
  * product: object
  * @return Product
  */
-router.post('/create', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const product = await productService.create(req.body);
 
@@ -58,7 +55,7 @@ router.post('/create', async (req, res) => {
  * id: int
  * @return Product || {}
  */
-router.put('/update/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
         const foundProduct = await productService.findOne(req.params.id);
 
@@ -66,9 +63,12 @@ router.put('/update/:id', async (req, res) => {
             throw new Error('Product not found');
         }
 
-        await productService.update(req.params.id, req.body);
+        const updatedProduct = await productService.update(
+            req.params.id,
+            req.body
+        );
 
-        res.send('Product has been updated');
+        res.send(updatedProduct);
     } catch (error) {
         res.status(400).send(`An error ocurred: ${error}`);
     }

@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const vendorService = require('../services/vendorService');
+const vendorService = require('../../services/vendorService');
 
 /**
  * Get vendors
@@ -40,7 +40,7 @@ router.get('/:id', async (req, res) => {
  * vendor: object
  * @return Vendor
  */
-router.post('/create', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         const vendor = await vendorService.create(req.body);
 
@@ -55,7 +55,7 @@ router.post('/create', async (req, res) => {
  * vendorId: int
  * @return Vendor || {}
  */
-router.put('/update/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
         const foundVendor = await vendorService.findOne(req.params.id);
 
@@ -63,9 +63,12 @@ router.put('/update/:id', async (req, res) => {
             throw new Error('Vendor not found');
         }
 
-        await vendorService.update(req.params.id, req.body);
+        const updatedVendor = await vendorService.update(
+            req.params.id,
+            req.body
+        );
 
-        res.send('Vendor has been updated');
+        res.send(updatedVendor);
     } catch (error) {
         res.status(400).send(`An error ocurred: ${error}`);
     }
