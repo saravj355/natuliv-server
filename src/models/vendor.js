@@ -16,6 +16,7 @@ module.exports = function (sequelize, DataTypes) {
             name: {
                 type: DataTypes.STRING(45),
                 allowNull: false,
+                unique: 'name_UNIQUE',
             },
             contactNumber: {
                 type: DataTypes.STRING(45),
@@ -24,6 +25,7 @@ module.exports = function (sequelize, DataTypes) {
             websiteUrl: {
                 type: DataTypes.STRING(100),
                 allowNull: true,
+                unique: 'websiteUrl_UNIQUE',
             },
             logoPath: {
                 type: DataTypes.STRING(200),
@@ -55,6 +57,18 @@ module.exports = function (sequelize, DataTypes) {
                     unique: true,
                     using: 'BTREE',
                     fields: [{ name: 'vendorId' }],
+                },
+                {
+                    name: 'name_UNIQUE',
+                    unique: true,
+                    using: 'BTREE',
+                    fields: [{ name: 'name' }],
+                },
+                {
+                    name: 'websiteUrl_UNIQUE',
+                    unique: true,
+                    using: 'BTREE',
+                    fields: [{ name: 'websiteUrl' }],
                 },
             ],
         }

@@ -13,6 +13,10 @@ module.exports = function (sequelize, DataTypes) {
                 allowNull: false,
                 unique: 'identityUserId_UNIQUE',
             },
+            fullName: {
+                type: DataTypes.STRING(45),
+                allowNull: false,
+            },
             email: {
                 type: DataTypes.STRING(45),
                 allowNull: false,

@@ -8,10 +8,6 @@ module.exports = function (sequelize, DataTypes) {
                 allowNull: false,
                 primaryKey: true,
             },
-            fullName: {
-                type: DataTypes.STRING(45),
-                allowNull: false,
-            },
             bornDate: {
                 type: DataTypes.DATEONLY,
                 allowNull: false,
