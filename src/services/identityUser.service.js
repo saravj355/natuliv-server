@@ -18,10 +18,22 @@ async function createIdentityUser(newIdentityUser) {
     return IdentityUserModel.create(identityUser);
 }
 
+async function updateIdentityUser(id, identityUser = {}) {
+    identityUser.lastUpdateDate = Utils.Date.getDate();
+
+    return IdentityUserModel.update(identityUser, {
+        where: { id: id },
+    });
+}
+
 async function findIdentityUserByEmail(email) {
     return IdentityUserModel.findOne({
         where: { email },
     });
 }
 
-module.exports = { createIdentityUser, findIdentityUserByEmail };
+module.exports = {
+    createIdentityUser,
+    findIdentityUserByEmail,
+    updateIdentityUser,
+};
