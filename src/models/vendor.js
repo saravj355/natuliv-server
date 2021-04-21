@@ -9,7 +9,7 @@ module.exports = function (sequelize, DataTypes) {
                 primaryKey: true,
             },
             vendorId: {
-                type: DataTypes.STRING(20),
+                type: DataTypes.STRING(45),
                 allowNull: false,
                 unique: 'vendorId_UNIQUE',
             },
