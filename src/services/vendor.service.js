@@ -10,7 +10,6 @@ async function findVendorsByFilters(filter = {}) {
         filters.where.name = { [Op.like]: `%${filter.name}%` };
     }
 
-    filters.where = filter;
     return filters;
 }
 
