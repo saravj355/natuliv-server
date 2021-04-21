@@ -1,4 +1,4 @@
-function handleFilters(filter) {
+function handleDefaultFilters(filter) {
     /* default filters */
     const filters = {
         where: {},
@@ -22,4 +22,4 @@ function handleFilters(filter) {
     return filters;
 }
 
-module.exports = handleFilters;
+module.exports = { handleDefaultFilters };
