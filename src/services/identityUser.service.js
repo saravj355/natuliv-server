@@ -19,6 +19,10 @@ async function createIdentityUser(newIdentityUser) {
 }
 
 async function updateIdentityUser(id, identityUser = {}) {
+    if (identityUser.password) {
+        identityUser.passwordHash = Utils.Hash.generate(identityUser.password);
+    }
+
     identityUser.lastUpdateDate = Utils.Date.getDate();
 
     return IdentityUserModel.update(identityUser, {
@@ -28,7 +32,7 @@ async function updateIdentityUser(id, identityUser = {}) {
 
 async function findIdentityUserByEmail(email) {
     return IdentityUserModel.findOne({
-        where: { email },
+        where: { email: email },
     });
 }
 
