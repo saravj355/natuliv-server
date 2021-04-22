@@ -38,7 +38,7 @@ async function getBuyers(filter = {}) {
     return BuyerUserModel.findAll({
         where: filters.where,
         offset: filters.offset,
-        order: filters.sort,
+        order: [filters.sort],
         limit: filters.limit,
         include: buyerReferenceModels,
     });
