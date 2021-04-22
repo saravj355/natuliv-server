@@ -1,4 +1,4 @@
-const connection = require('./Connection');
 const { models } = require('./Sequelize');
+const connection = require('./Connection');
 
 module.exports = { connection, models };

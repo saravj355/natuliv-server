@@ -1,5 +1,5 @@
-const { initModels } = require('../models/init-models');
 const { Sequelize } = require('sequelize');
+const initModels = require('../models/init-models');
 const { Config } = require('../config/config.db');
 
 const sequelize = new Sequelize({

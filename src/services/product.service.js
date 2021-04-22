@@ -1,6 +1,6 @@
-const { Op } = require('sequelize/types');
 const { models } = require('../db');
 const ProductModel = models.product;
+const { Op } = require('sequelize');
 const { Filters, UUID } = require('../utilities');
 
 const productReferenceModels = [
@@ -8,7 +8,7 @@ const productReferenceModels = [
     { model: models.product_category, as: 'productCategory' },
 ];
 
-async function findProductsByFilters(filter = {}) {
+function findProductsByFilters(filter = {}) {
     const filters = Filters.handleDefaultFilters(filter);
 
     if (filter.name) {
@@ -32,7 +32,7 @@ async function getProducts(filter = {}) {
     return ProductModel.findAll({
         where: filters.where,
         offset: filters.offset,
-        order: filters.sort,
+        order: [filters.sort],
         limit: filters.limit,
         include: productReferenceModels,
     });
