@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const productService = require('../../services/productService');
+const productService = require('../../services/product.service');
 
 /**
  * Get products
@@ -8,7 +8,7 @@ const productService = require('../../services/productService');
  */
 router.get('/', async (req, res) => {
     try {
-        const foundProducts = await productService.findAll(req.query);
+        const foundProducts = await productService.getProducts(req.query);
 
         res.send(foundProducts);
     } catch (error) {
@@ -23,7 +23,9 @@ router.get('/', async (req, res) => {
  */
 router.get('/:id', async (req, res) => {
     try {
-        const foundProduct = await productService.findOne(req.params.id);
+        const foundProduct = await productService.findProductById(
+            req.params.id
+        );
 
         if (!foundProduct) {
             throw new Error('Product not found');
@@ -42,7 +44,7 @@ router.get('/:id', async (req, res) => {
  */
 router.post('/', async (req, res) => {
     try {
-        const product = await productService.create(req.body);
+        const product = await productService.createProduct(req.body);
 
         res.send(product);
     } catch (error) {
@@ -57,13 +59,15 @@ router.post('/', async (req, res) => {
  */
 router.put('/:id', async (req, res) => {
     try {
-        const foundProduct = await productService.findOne(req.params.id);
+        const foundProduct = await productService.findProductById(
+            req.params.id
+        );
 
         if (!foundProduct) {
             throw new Error('Product not found');
         }
 
-        const updatedProduct = await productService.update(
+        const updatedProduct = await productService.updateProduct(
             req.params.id,
             req.body
         );
