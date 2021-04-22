@@ -3,6 +3,12 @@ const { models } = require('../db');
 const IdentityUserModel = models.identity_user;
 const { getRoleByKeyName } = require('./identityUserRole.service');
 
+async function findIdentityUserById(id) {
+    return IdentityUserModel.findOne({
+        where: { id },
+    });
+}
+
 async function createIdentityUser(newIdentityUser) {
     const { fullName, email, password, roleName } = newIdentityUser;
 
@@ -12,8 +18,10 @@ async function createIdentityUser(newIdentityUser) {
         identityUserId: Utils.UUID.generate(),
         passwordHash: Utils.Hash.generate(password),
         creationDate: Utils.Date.getDate(),
-        identityUserRoleId: await getRoleByKeyName(roleName),
     };
+
+    const { id } = await getRoleByKeyName(roleName);
+    identityUser.identityUserRoleId = id;
 
     return IdentityUserModel.create(identityUser);
 }
@@ -25,14 +33,15 @@ async function updateIdentityUser(id, identityUser = {}) {
 
     identityUser.lastUpdateDate = Utils.Date.getDate();
 
-    return IdentityUserModel.update(identityUser, {
-        where: { id: id },
+    await IdentityUserModel.update(identityUser, {
+        where: { id },
     });
+    return await findIdentityUserById(id);
 }
 
 async function findIdentityUserByEmail(email) {
     return IdentityUserModel.findOne({
-        where: { email: email },
+        where: { email },
     });
 }
 
