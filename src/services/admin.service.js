@@ -13,4 +13,8 @@ async function createAdminUser({ email, fullName }) {
     return await identityUserService.createIdentityUser(adminUser);
 }
 
-module.exports = { createAdminUser };
+async function updateAdminUser(id, user) {
+    return identityUserService.updateIdentityUser(id, user);
+}
+
+module.exports = { createAdminUser, updateAdminUser };
