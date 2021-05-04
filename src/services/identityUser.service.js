@@ -1,6 +1,6 @@
-const Utils = require('../utilities');
 const { models } = require('../db');
 const IdentityUserModel = models.identity_user;
+const Utils = require('../utilities');
 const { getRoleByKeyName } = require('./identityUserRole.service');
 
 async function findIdentityUserById(id) {
@@ -20,8 +20,8 @@ async function createIdentityUser(newIdentityUser) {
         creationDate: Utils.Date.getDate(),
     };
 
-    const { id } = await getRoleByKeyName(roleName);
-    identityUser.identityUserRoleId = id;
+    const role = await getRoleByKeyName(roleName);
+    identityUser.identityUserRoleId = role.id;
 
     return IdentityUserModel.create(identityUser);
 }
