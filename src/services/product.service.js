@@ -1,5 +1,6 @@
 const { models } = require('../db');
 const ProductModel = models.product;
+const ProductCategoryModel = models.product_category;
 const { Op } = require('sequelize');
 const { Filters, UUID } = require('../utilities');
 
@@ -24,6 +25,10 @@ function findProductsByFilters(filter = {}) {
     }
 
     return filters;
+}
+
+async function getProductCategories() {
+    return ProductCategoryModel.findAll();
 }
 
 async function getProducts(filter = {}) {
@@ -62,4 +67,5 @@ module.exports = {
     getProducts,
     createProduct,
     updateProduct,
+    getProductCategories,
 };

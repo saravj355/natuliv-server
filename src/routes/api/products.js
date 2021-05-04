@@ -2,6 +2,19 @@ const router = require('express').Router();
 const productService = require('../../services/product.service');
 
 /**
+ * Get products categories
+ * @return Categories || {}
+ */
+router.get('/categories', async (req, res) => {
+    try {
+        const foundCategories = await productService.getProductCategories();
+        res.send(foundCategories);
+    } catch (error) {
+        res.status(400).send(`An error ocurred: ${error}`);
+    }
+});
+
+/**
  * Get products
  * req : filter: {}
  * @return Products || {}
@@ -45,7 +58,7 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const product = await productService.createProduct(req.body);
-
+        console.log(product);
         res.send(product);
     } catch (error) {
         res.status(400).send(`An error ocurred: ${error}`);
