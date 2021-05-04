@@ -1,12 +1,15 @@
 const { models } = require('../db');
 const BuyerUserModel = models.buyer_user;
-const BuyerGenderModel = models.buyer_user_gender;
-const identityUserService = require('./identityUser.service');
-const { IdentityUserRoleEnum, BuyerGenderEnum } = require('../enums');
 const { Filters } = require('../utilities');
+const { IdentityUserRoleEnum } = require('../enums');
+const identityUserService = require('./identityUser.service');
+const { getGenderByKeyName } = require('./buyerUserGender.service');
 
 const buyerReferenceModels = [
-    { model: models.buyer_user_gender, as: 'gender' },
+    {
+        model: models.buyer_user_gender,
+        as: 'gender',
+    },
     {
         model: models.identity_user,
         as: 'identityUser',
@@ -14,27 +17,19 @@ const buyerReferenceModels = [
     },
 ];
 
-async function getUserGenderIdByKeyName(genderName) {
-    const keyName = BuyerGenderEnum[genderName];
-
-    return BuyerGenderModel.findOne({
-        where: { keyName },
-    });
-}
-
 async function findBuyersByFilters(filter = {}) {
     const filters = Filters.handleDefaultFilters(filter);
-
+    
     if (filter.gender) {
-        filters.where.genderId = await getUserGenderIdByKeyName(filter.gender);
+        const gender = await getGenderByKeyName(filter.gender);
+        filters.where.genderId = gender.id;
     }
 
     return filters;
 }
 
 async function getBuyers(filter = {}) {
-    const filters = findBuyersByFilters(filter);
-
+    const filters = await findBuyersByFilters(filter);
     return BuyerUserModel.findAll({
         where: filters.where,
         offset: filters.offset,
@@ -46,7 +41,7 @@ async function getBuyers(filter = {}) {
 
 async function findBuyerById(id) {
     return BuyerUserModel.findOne({
-        where: { id: id },
+        where: { id },
         include: buyerReferenceModels,
     });
 }
@@ -56,14 +51,17 @@ async function createBuyer(newBuyer) {
         email: newBuyer.email,
         password: newBuyer.password,
         fullName: newBuyer.fullName,
-        role: IdentityUserRoleEnum.BUYER,
+        roleName: IdentityUserRoleEnum.BUYER,
     });
+
     const buyerUser = {
         bornDate: newBuyer.bornDate,
-        genderId: newBuyer.genderId,
         city: newBuyer.city,
-        identityUserId: identityUser,
+        identityUserId: identityUser.id,
     };
+
+    const buyerUserGender = await getGenderByKeyName(newBuyer.gender);
+    buyerUser.genderId = buyerUserGender.id;
 
     return BuyerUserModel.create(buyerUser);
 }
@@ -72,7 +70,7 @@ async function updateBuyer(id, buyer = {}) {
     const { identityUserId } = await findBuyerById(id);
 
     BuyerUserModel.update(buyer, {
-        where: { id: id },
+        where: { id },
     });
 
     await identityUserService.updateIdentityUser(identityUserId, buyer);
