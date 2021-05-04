@@ -4,12 +4,6 @@ const IdentityUserRoleEnum = {
     VENDOR: 'vendor',
 };
 
-const BuyerGenderEnum = {
-    FEMALE: 'female',
-    MALE: 'male',
-};
-
 module.exports = {
     IdentityUserRoleEnum,
-    BuyerGenderEnum,
 };
