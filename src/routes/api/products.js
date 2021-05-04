@@ -58,7 +58,6 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const product = await productService.createProduct(req.body);
-        console.log(product);
         res.send(product);
     } catch (error) {
         res.status(400).send(`An error ocurred: ${error}`);
