@@ -482,7 +482,7 @@ Updates a specific product by a provided id
 
 `[PUT] /api/vendors/:vendorId/products/:productId` or `/api/products/:productId`
 
-**Example:** `api/vendors/1/product/11`
+**Example:** `api/vendors/1/product/11` or `api/products/11`
 
 ```json
 [
