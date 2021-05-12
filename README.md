@@ -24,7 +24,7 @@ Initializes the server and database connection
 
 Creates a buyer user.
 
-**Buyer Data Sent:**
+**Vendor data to send:**
 ```json
 [
     {
@@ -41,7 +41,7 @@ Password is encrypted on POST.
 
 ### Get buyers
 
-Returns the Natuliv app buyers.
+Returns an array of buyers.
 
 `[GET] /api/buyers`
 
@@ -74,7 +74,7 @@ Response:
         }
     },
     {
-        // All buyers
+
     }
 ]
 ```
@@ -159,7 +159,7 @@ The buyer is no longer active
 
 Creates a vendor.
 
-**Vendor Data Sent:**
+**Vendor data to send:**
 ```json
 [
     {
@@ -174,7 +174,7 @@ Creates a vendor.
 
 ### Get vendors
 
-Returns all vendors.
+Returns an array of vendors.
 
 `[GET] /api/vendors`
 
@@ -195,7 +195,7 @@ Response:
         "isActive": true
     },
     {
-        // All vendors
+        
     }
 ]
 ```
@@ -265,7 +265,7 @@ The vendor is no longer active
 
 Creates a vendor user.
 
-**Vendor User Data Sent:**
+**Vendor User data to send:**
 ```json
 [
     {
@@ -278,7 +278,7 @@ Password is generated and encrypted on POST.
 
 ### Get vendor users
 
-Returns the Natuliv Vendor portal users of a specific vendor.
+Returns an array of users by vendor.
 
 `[GET] /api/vendors/:vendorId/users`
 
@@ -305,7 +305,7 @@ Response:
         }
     },
     {
-        // All vendors users
+       
     }
 ]
 ```
@@ -373,17 +373,13 @@ The vendor user is no longer active
 
 ## Vendor Products
 ---
-
-There are two routes for products entity: both ways are shown on every method.
-
 ### Create product
-`[POST] /api/vendors/:vendorId/products` or `/api/products`
 
-**Example:** `/api/vendors/1/products`
+`[POST] /api/products`
 
 Creates a product.
 
-**Product Data Sent:**
+**Product data to send:**
 ```json
 [
     {
@@ -392,19 +388,16 @@ Creates a product.
         "price": 50000,
         "imagePath": "foo.png",
         "productCategory": 1,
-        // if route is api/products the vendorId must be referenced on product data @example 
-        // "vendorId": 1
+        "vendorId": 1
     }
 ]
 ```
 
 ### Get Products
 
-Returns the products of a specific vendor.
+Returns an array of products.
 
-`[GET] /api/vendors/:vendorId/products` or `/api/products`
-
-**Example:** `/api/vendors/1/products`
+`[GET] /api/products`
 
 Response:
 
@@ -425,7 +418,7 @@ Response:
         "isActive": true
     },
     {
-        // All products
+       
     }
 ]
 ```
@@ -433,13 +426,11 @@ Response:
 #### Filters
 Basic filtering is supported through query parameters.
 
-**Example**: `api/vendors/1/products?name=shampoo` 
-
-This will return all vendors products whose name has **shampoo** in it, where vendorId is 1.
-
 **Example**: `api/products?name=shampoo` 
 
 This will return all products whose name has **shampoo** in it.
+
+**Two or more query filters**: `api/products?isActive=true&vendorId=1`
 
 Products filters supported: 
 
@@ -450,11 +441,11 @@ Products filters supported:
 
 ### Get product
 
-Returns a specific product by a provided id, where vendorId is 1
+Returns a specific product by a provided id.
 
-`[GET] /api/vendors/:vendorId/products/:productId` or `/api/products/:productId`
+`[GET] /api/products/:productId`
 
-**Example:** `api/vendors/1/products/11` or `api/products/11`
+**Example:** `api/products/11`
 
 ```json
 [
@@ -475,14 +466,13 @@ Returns a specific product by a provided id, where vendorId is 1
 ]
 ```
 
-
 ### Update product
 
 Updates a specific product by a provided id
 
-`[PUT] /api/vendors/:vendorId/products/:productId` or `/api/products/:productId`
+`[PUT] /api/products/:productId`
 
-**Example:** `api/vendors/1/product/11` or `api/products/11`
+**Example:** `api/products/11`
 
 ```json
 [
