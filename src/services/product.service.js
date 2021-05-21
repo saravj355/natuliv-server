@@ -1,15 +1,9 @@
+const { Filters, UUID } = require('../utilities');
+const { Op } = require('sequelize');
 const { models } = require('../db');
 const ProductModel = models.product;
-const ProductCategoryModel = models.product_category;
-const { Op } = require('sequelize');
-const { Filters, UUID } = require('../utilities');
 
-const productReferenceModels = [
-    { model: models.vendor, as: 'vendor' },
-    { model: models.product_category, as: 'productCategory' },
-];
-
-function findProductsByFilters(filter = {}) {
+function getProductsFilters(filter = {}) {
     const filters = Filters.handleDefaultFilters(filter);
 
     if (filter.name) {
@@ -27,26 +21,28 @@ function findProductsByFilters(filter = {}) {
     return filters;
 }
 
-async function getProductCategories() {
-    return ProductCategoryModel.findAll();
-}
-
 async function getProducts(filter = {}) {
-    const filters = findProductsByFilters(filter);
+    const filters = getProductsFilters(filter);
 
     return ProductModel.findAll({
         where: filters.where,
         offset: filters.offset,
         order: [filters.sort],
         limit: filters.limit,
-        include: productReferenceModels,
+        include: {
+            model: models.product_category,
+            as: 'productCategory',
+        },
     });
 }
 
 async function findProductById(id) {
     return ProductModel.findOne({
-        where: { id: id },
-        include: productReferenceModels,
+        where: { id },
+        include: {
+            model: models.product_category,
+            as: 'productCategory',
+        },
     });
 }
 
@@ -57,9 +53,9 @@ async function createProduct(newProduct) {
 
 async function updateProduct(id, product) {
     await ProductModel.update(product, {
-        where: { id: id },
+        where: { id },
     });
-    return await findProductById(id);
+    return findProductById(id);
 }
 
 module.exports = {
@@ -67,5 +63,4 @@ module.exports = {
     getProducts,
     createProduct,
     updateProduct,
-    getProductCategories,
 };
