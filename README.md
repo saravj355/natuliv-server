@@ -73,9 +73,7 @@ Response:
             }
         }
     },
-    {
-
-    }
+    ...
 ]
 ```
 #### Filters
@@ -194,20 +192,18 @@ Response:
         "description": "Baz is a new brand that provides natural products",
         "isActive": true
     },
-    {
-        
-    }
+    ...
 ]
 ```
 
 #### Filters
 Basic filtering is supported through query parameters.
 
-**Example**: `api/vendors/?name=ba` 
+**Example**: `api/vendors?name=ba` 
 
 This will return all vendors whose name has **ba** in it
 
-**Two or more query filters**: `api/vendors/1/users?isActive=true&name=ba`
+**Two or more query filters**: `api/vendors?isActive=true&name=ba`
 
 Vendors filters supported: 
 
@@ -304,9 +300,7 @@ Response:
             "displayName": "Vendor"
         }
     },
-    {
-       
-    }
+    ...
 ]
 ```
 
@@ -387,7 +381,7 @@ Creates a product.
         "description": "Shampoo to hydrate your hair",
         "price": 50000,
         "imagePath": "foo.png",
-        "productCategory": 1,
+        "productCategoryId": 1,
         "vendorId": 1
     }
 ]
@@ -405,6 +399,7 @@ Response:
 [
     {
         "productId": 11,
+        "productIdHash": "0edcd161-a955-4cbd-ad14-6917490fadff",
         "name": "Shampoo",
         "description": "Shampoo to hydrate your hair",
         "price": 50000,
@@ -417,9 +412,7 @@ Response:
         },
         "isActive": true
     },
-    {
-       
-    }
+    ...
 ]
 ```
 
@@ -451,6 +444,7 @@ Returns a specific product by a provided id.
 [
     {
         "productId": 11,
+        "productIdHash": "0edcd161-a955-4cbd-ad14-6917490fadff",
         "name": "Shampoo",
         "description": "Shampoo to hydrate your hair",
         "price": 50000,
@@ -461,7 +455,6 @@ Returns a specific product by a provided id.
             "keyName": "hair",
             "displayName": "Cabello"
         },
-        "isActive": true
     },
 ]
 ```
