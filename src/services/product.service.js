@@ -3,7 +3,13 @@ const { Op } = require('sequelize');
 const { models } = require('../db');
 const ProductModel = models.product;
 
-function getProductsFilters(filter = {}) {
+/**
+ * Handle the product filters supported
+ * @param { Object } filter: Query filters - Optional
+ * @returns filters
+ */
+
+function handleProductFilters(filter = {}) {
     const filters = Filters.handleDefaultFilters(filter);
 
     if (filter.name) {
@@ -21,8 +27,14 @@ function getProductsFilters(filter = {}) {
     return filters;
 }
 
+/**
+ * Get list of products
+ * @param { Object } filter: Query filters - Optional
+ * @returns a collection of products || []
+ */
+
 async function getProducts(filter = {}) {
-    const filters = getProductsFilters(filter);
+    const filters = handleProductFilters(filter);
 
     return ProductModel.findAll({
         where: filters.where,
@@ -36,6 +48,12 @@ async function getProducts(filter = {}) {
     });
 }
 
+/**
+ * Find a product by a provided id
+ * @param { Number } id: Required
+ * @returns found product
+ */
+
 async function findProductById(id) {
     return ProductModel.findOne({
         where: { id },
@@ -46,15 +64,35 @@ async function findProductById(id) {
     });
 }
 
+/**
+ * Create a product
+ * @param { Object } newProduct: Required
+ * @returns created product
+ */
+
 async function createProduct(newProduct) {
     newProduct.productId = UUID.generate();
     return ProductModel.create(newProduct);
 }
 
-async function updateProduct(id, product) {
-    await ProductModel.update(product, {
+/**
+ * Update a product by a provided id
+ * @param { Number } id: Required
+ * @param { Object } body: Required
+ * @returns the updated product
+ */
+
+async function updateProduct(id, body) {
+    const foundProduct = findProductById(id);
+
+    if (!foundProduct) {
+        throw new Error('Product not found');
+    }
+
+    await ProductModel.update(body, {
         where: { id },
     });
+
     return findProductById(id);
 }
 
