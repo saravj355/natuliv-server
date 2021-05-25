@@ -11,10 +11,8 @@ const routes = require('./src/routes');
 //body parser middleware
 app.use(express.json());
 
-// CORS
 app.use(cors());
 
-//routes
 app.use(routes);
 
 async function init() {
