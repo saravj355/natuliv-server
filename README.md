@@ -299,18 +299,19 @@ Response:
 [
     {
         "vendorUserId": 10,
-        "identityUserId": "0429f4ef-d4b0-4390-ae0d-2fefd485b283",
         "vendorId": 1,
-        "fullName": "Jhon Doe",
-        "email": "jdoe@example.com",
-        "creationDate": "2021-01-01T12:00:00Z",
-        "lastLoginDate": "2021-01-12T17:20:00Z",
-        "lastUpdateDate": "2021-01-11T17:30:00Z",
-        "isActive": true,
-        "identityUserRole": {
-            "id": 2,
-            "keyName": "vendor",
-            "displayName": "Vendor"
+        "identityUser": {
+            "fullName": "Jhon Doe",
+            "email": "jdoe@example.com",
+            "creationDate": "2021-01-01T12:00:00Z",
+            "lastLoginDate": "2021-01-12T17:20:00Z",
+            "lastUpdateDate": "2021-01-11T17:30:00Z",
+            "isActive": true,
+            "identityUserRole": {
+                "id": 2,
+                "keyName": "vendor",
+                "displayName": "Vendor"
+            }
         }
     },
     ...
@@ -345,20 +346,21 @@ Returns a specific vendor user by a provided id
 [
     {
         "vendorUserId": 10,
-        "identityUserId": "0429f4ef-d4b0-4390-ae0d-2fefd485b283",
         "vendorId": 1,
-        "fullName": "Jhon Doe",
-        "email": "jdoe@example.com",
-        "creationDate": "2021-01-01T12:00:00Z",
-        "lastLoginDate": "2021-01-12T17:20:00Z",
-        "lastUpdateDate": "2021-01-11T17:30:00Z",
-        "isActive": true,
-        "identityUserRole": {
-            "id": 2,
-            "keyName": "vendor",
-            "displayName": "Vendor"
+        "identityUser": {
+            "fullName": "Jhon Doe",
+            "email": "jdoe@example.com",
+            "creationDate": "2021-01-01T12:00:00Z",
+            "lastLoginDate": "2021-01-12T17:20:00Z",
+            "lastUpdateDate": "2021-01-11T17:30:00Z",
+            "isActive": true,
+            "identityUserRole": {
+                "id": 2,
+                "keyName": "vendor",
+                "displayName": "Vendor"
+            }
         }
-    }
+    },
 ]
 ```
 
