@@ -4,12 +4,12 @@ const { models } = require('../db');
 const ProductModel = models.product;
 
 /**
- * Handle the product filters supported
+ * Get list of products
  * @param { Object } filter: Query filters - Optional
- * @returns filters
+ * @returns a collection of products || []
  */
 
-function handleProductFilters(filter = {}) {
+async function getProducts(filter = {}) {
     const filters = Filters.handleDefaultFilters(filter);
 
     if (filter.name) {
@@ -23,18 +23,6 @@ function handleProductFilters(filter = {}) {
     if (filter.categoryId) {
         filters.where.productCategoryId = filter.categoryId;
     }
-
-    return filters;
-}
-
-/**
- * Get list of products
- * @param { Object } filter: Query filters - Optional
- * @returns a collection of products || []
- */
-
-async function getProducts(filter = {}) {
-    const filters = handleProductFilters(filter);
 
     return ProductModel.findAll({
         where: filters.where,
