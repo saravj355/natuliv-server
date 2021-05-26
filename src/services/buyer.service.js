@@ -95,24 +95,24 @@ async function createBuyer(newBuyer) {
 /**
  * Update a buyer user by a provided id
  * @param { Number } id: Required
- * @param { Object } body: Required
+ * @param { Object } buyerUser: Required
  * @returns the updated buyer user
  */
 
-async function updateBuyer(id, body) {
+async function updateBuyer(id, buyerUser) {
     const foundBuyerUser = await findBuyerById(id);
 
     if (!foundBuyerUser) {
         throw new Error('Buyer user not found.');
     }
 
-    await BuyerUserModel.update(body, {
+    await BuyerUserModel.update(buyerUser, {
         where: { id },
     });
 
     await identityUserService.updateIdentityUser(
         foundBuyerUser.identityUserId,
-        body.identityUser
+        buyerUser.identityUser
     );
 
     return findBuyerById(id);
