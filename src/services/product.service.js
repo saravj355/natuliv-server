@@ -66,18 +66,18 @@ async function createProduct(newProduct) {
 /**
  * Update a product by a provided id
  * @param { Number } id: Required
- * @param { Object } body: Required
+ * @param { Object } product: Required
  * @returns the updated product
  */
 
-async function updateProduct(id, body) {
+async function updateProduct(id, product) {
     const foundProduct = findProductById(id);
 
     if (!foundProduct) {
         throw new Error('Product not found');
     }
 
-    await ProductModel.update(body, {
+    await ProductModel.update(product, {
         where: { id },
     });
 
