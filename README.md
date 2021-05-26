@@ -1,4 +1,5 @@
 # Natuliv
+
 ---
 
 Natuliv is a web application focused on promoting natural products and its suppliers through personalized recommendations to the customer.
@@ -14,22 +15,24 @@ yarn run start
 Initializes the server and database connection
 
 # API
+
 ---
 
 ## Buyer
 
-### Create buyer 
+### Create buyer
 
 `[POST] /api/buyers`
 
 Creates a buyer user.
 
 **Vendor data to send:**
+
 ```json
 [
     {
         "bornDate": "2001-07-09",
-        "genderId": 2 ,
+        "genderId": 2,
         "city": "Medellín",
         "fullName": "Joe Schmoe",
         "email": "joesch@example.com",
@@ -37,6 +40,7 @@ Creates a buyer user.
     }
 ]
 ```
+
 Password is encrypted on POST.
 
 ### Get buyers
@@ -62,7 +66,7 @@ Response:
         "identityUser": {
             "fullName": "Joe Schmoe",
             "email": "joesch@example.com",
-            "creationDate": "2021-02-11T16:00:50Z", 
+            "creationDate": "2021-02-11T16:00:50Z",
             "lastLoginDate": "2021-02-11T16:50:00Z",
             "lastUpdateDate": "2021-03-10T17:20:00Z",
             "isActive": true,
@@ -76,21 +80,24 @@ Response:
     ...
 ]
 ```
+
 #### Filters
+
 Basic filtering is supported through query parameters.
 
-**Example**: `api/buyers?fullName=Joe` 
+**Example**: `api/buyers?fullName=Joe`
 
 This will return all buyers whose fullName has **Joe** in it.
 
 **Two or more query filters**: `api/buyers?isActive=true&genderId=2`
 
-Buyers filters supported: 
+Buyers filters supported:
 
-* `isActive: Boolean` 
-* `fullName: String`
-* `genderId: Number`
-* `email: String`
+-   `isActive: Boolean`
+-   `fullName: String`
+-   `genderId: Number`
+-   `email: String`
+-   `city: String`
 
 ### Get buyer
 
@@ -108,14 +115,14 @@ Returns a specific vendor by a provided id
         "gender": {
             "id": 1,
             "keyName": "male",
-            "displayName":"Male"
+            "displayName": "Male"
         },
         "lastSurveyFillDate": "2021-01-11T14:22:08Z",
         "city": "Medellín",
         "identityUser": {
             "fullName": "Joe Schmoe",
             "email": "joesch@example.com",
-            "creationDate": "2021-02-11T16:00:50Z", 
+            "creationDate": "2021-02-11T16:00:50Z",
             "lastLoginDate": "2021-02-11T16:50:00Z",
             "lastUpdateDate": "2021-03-10T17:20:00Z",
             "isActive": true,
@@ -125,9 +132,10 @@ Returns a specific vendor by a provided id
                 "displayName": "Buyer"
             }
         }
-    },
+    }
 ]
 ```
+
 ### Update buyer
 
 Updates a buyer by a provided id
@@ -140,15 +148,14 @@ Updates a buyer by a provided id
 [
     {
         "isActive": false
-    },
+    }
 ]
 ```
 
 The buyer is no longer active
 
-
-
 ## Vendor
+
 ---
 
 ### Create vendor
@@ -158,6 +165,7 @@ The buyer is no longer active
 Creates a vendor.
 
 **Vendor data to send:**
+
 ```json
 [
     {
@@ -197,18 +205,19 @@ Response:
 ```
 
 #### Filters
+
 Basic filtering is supported through query parameters.
 
-**Example**: `api/vendors?name=ba` 
+**Example**: `api/vendors?name=ba`
 
 This will return all vendors whose name has **ba** in it
 
 **Two or more query filters**: `api/vendors?isActive=true&name=ba`
 
-Vendors filters supported: 
+Vendors filters supported:
 
-* `isActive: Boolean` 
-* `name: String`
+-   `isActive: Boolean`
+-   `name: String`
 
 ### Get vendor
 
@@ -229,9 +238,10 @@ Returns a specific vendor by a provided id
         "logoPath": "file.png",
         "description": "Baz is a new brand that provides natural products",
         "isActive": true
-    },
+    }
 ]
 ```
+
 ### Update vendor
 
 Updates a specific vendor by a provided id
@@ -244,15 +254,16 @@ Updates a specific vendor by a provided id
 [
     {
         "isActive": false
-    },
+    }
 ]
 ```
 
 The vendor is no longer active
 
-
 ## Vendor Users
+
 ---
+
 ### Create vendor user
 
 `[POST] /api/vendors/:vendorId/users`
@@ -262,14 +273,16 @@ The vendor is no longer active
 Creates a vendor user.
 
 **Vendor User data to send:**
+
 ```json
 [
     {
         "fullName": "Jhon Doe",
-        "email": "jdoe@example.com",
+        "email": "jdoe@example.com"
     }
 ]
 ```
+
 Password is generated and encrypted on POST.
 
 ### Get vendor users
@@ -305,19 +318,20 @@ Response:
 ```
 
 #### Filters
+
 Basic filtering is supported through query parameters.
 
-**Example**: `api/vendors/1/users?fullName=Doe` 
+**Example**: `api/vendors/1/users?fullName=Doe`
 
 This will return all users whose fullName has **Doe** in it, where vendorId is 1.
 
 **Two or more query filters**: `api/vendors/1/users?isActive=true&email=example`
 
-Vendors users filters supported: 
+Vendors users filters supported:
 
-* `isActive: Boolean` 
-* `fullName: String`
-* `email: String`
+-   `isActive: Boolean`
+-   `fullName: String`
+-   `email: String`
 
 ### Get vendor user
 
@@ -344,9 +358,10 @@ Returns a specific vendor user by a provided id
             "keyName": "vendor",
             "displayName": "Vendor"
         }
-    },
+    }
 ]
 ```
+
 ### Update vendor user
 
 Updates a specific vendor user by a provided id
@@ -359,14 +374,16 @@ Updates a specific vendor user by a provided id
 [
     {
         "isActive": false
-    },
+    }
 ]
 ```
 
 The vendor user is no longer active
 
 ## Vendor Products
+
 ---
+
 ### Create product
 
 `[POST] /api/products`
@@ -374,6 +391,7 @@ The vendor user is no longer active
 Creates a product.
 
 **Product data to send:**
+
 ```json
 [
     {
@@ -417,20 +435,21 @@ Response:
 ```
 
 #### Filters
+
 Basic filtering is supported through query parameters.
 
-**Example**: `api/products?name=shampoo` 
+**Example**: `api/products?name=shampoo`
 
 This will return all products whose name has **shampoo** in it.
 
 **Two or more query filters**: `api/products?isActive=true&vendorId=1`
 
-Products filters supported: 
+Products filters supported:
 
-* `name: String` 
-* `vendorId: Number`
-* `categoryId: Number`
-* `isActive: Boolean`
+-   `name: String`
+-   `vendorId: Number`
+-   `categoryId: Number`
+-   `isActive: Boolean`
 
 ### Get product
 
@@ -454,8 +473,8 @@ Returns a specific product by a provided id.
             "id": 1,
             "keyName": "hair",
             "displayName": "Cabello"
-        },
-    },
+        }
+    }
 ]
 ```
 
@@ -471,7 +490,7 @@ Updates a specific product by a provided id
 [
     {
         "isActive": false
-    },
+    }
 ]
 ```
 
