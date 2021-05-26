@@ -1,49 +1,15 @@
 const router = require('express').Router();
-const buyerService = require('../../services/buyer.service');
+const buyerUserService = require('../../services/buyer.service');
 
 /**
- * Get buyers
- * req : filter: {}
- * @return Buyers || {}
+ * Create a buyer user
+ * @param { Object } req.body
+ * @return new buyer user
  */
-router.get('/', async (req, res) => {
-    try {
-        const foundBuyers = await buyerService.getBuyers(req.query);
 
-        res.send(foundBuyers);
-    } catch (error) {
-        res.status(400).send(`An error ocurred: ${error}`);
-    }
-});
-
-/**
- * Get buyer
- * id: int
- * @return Buyer || {}
- */
-router.get('/:id', async (req, res) => {
-    try {
-        const foundBuyer = await buyerService.findBuyerById(req.params.id);
-
-        if (!foundBuyer) {
-            throw new Error('Buyer not found');
-        }
-
-        res.send(foundBuyer);
-    } catch (error) {
-        res.status(400).send(`An error ocurred: ${error}`);
-    }
-});
-
-/**
- * Create buyer
- * id: int
- * @return Buyer
- */
 router.post('/', async (req, res) => {
     try {
-        const buyer = await buyerService.createBuyer(req.body);
-
+        const buyer = await buyerUserService.createBuyer(req.body);
         res.send(buyer);
     } catch (error) {
         res.status(400).send(`An error ocurred: ${error}`);
@@ -51,19 +17,44 @@ router.post('/', async (req, res) => {
 });
 
 /**
- * Update buyer
- * id: int
- * @return Buyer || {}
+ * Get list of buyers
+ * @param {*} req.query filters are supported through query parameters.
+ * @return collection of buyers || []
  */
+
+router.get('/', async (req, res) => {
+    try {
+        const foundBuyers = await buyerUserService.getBuyers(req.query);
+        res.send(foundBuyers);
+    } catch (error) {
+        res.status(400).send(`An error ocurred: ${error}`);
+    }
+});
+
+/**
+ * Find a specific buyer user
+ * @param { Number } id: Required
+ * @return buyer user || {}
+ */
+
+router.get('/:id', async (req, res) => {
+    try {
+        const foundBuyer = await buyerUserService.findBuyerById(req.params.id);
+        res.send(foundBuyer);
+    } catch (error) {
+        res.status(400).send(`An error ocurred: ${error}`);
+    }
+});
+
+/**
+ * Update buyer user by a provided id
+ * @param { Number } id: Required
+ * @return buyer user updated|| {}
+ */
+
 router.put('/:id', async (req, res) => {
     try {
-        const foundBuyer = await buyerService.findBuyerById(req.params.id);
-
-        if (!foundBuyer) {
-            throw new Error('Buyer not found');
-        }
-
-        const updatedBuyer = await buyerService.updateBuyer(
+        const updatedBuyer = await buyerUserService.updateBuyer(
             req.params.id,
             req.body
         );

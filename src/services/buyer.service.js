@@ -1,50 +1,78 @@
 const { models } = require('../db');
 const BuyerUserModel = models.buyer_user;
-const { Filters } = require('../utilities');
+const { Op } = require('sequelize');
 const { IdentityUserRoleEnum } = require('../enums');
 const identityUserService = require('./identityUser.service');
-const { getGenderByKeyName } = require('./buyerUserGender.service');
 
-const buyerReferenceModels = [
-    {
-        model: models.buyer_user_gender,
-        as: 'gender',
-    },
-    {
-        model: models.identity_user,
-        as: 'identityUser',
-        attributes: { exclude: ['passwordHash'] },
-    },
-];
-
-async function findBuyersByFilters(filter = {}) {
-    const filters = Filters.handleDefaultFilters(filter);
-    
-    if (filter.gender) {
-        const gender = await getGenderByKeyName(filter.gender);
-        filters.where.genderId = gender.id;
-    }
-
-    return filters;
-}
+/**
+ * Get list of buyers users
+ * @param { Object } filter: Query filters - Optional
+ * @returns a collection of buyers users || []
+ */
 
 async function getBuyers(filter = {}) {
-    const filters = await findBuyersByFilters(filter);
+    const filters = identityUserService.handleIdentityUserFilters(filter);
+
+    const buyerUserFilters = {
+        where: {},
+    };
+
+    if (filter.genderId) {
+        buyerUserFilters.where.genderId = filter.genderId;
+    }
+
+    if (filter.city) {
+        buyerUserFilters.where.city = { [Op.like]: `%${filter.city}%` };
+    }
+
     return BuyerUserModel.findAll({
-        where: filters.where,
+        where: buyerUserFilters.where,
         offset: filters.offset,
         order: [filters.sort],
         limit: filters.limit,
-        include: buyerReferenceModels,
+        include: [
+            {
+                model: models.buyer_user_gender,
+                as: 'gender',
+            },
+            {
+                model: models.identity_user,
+                as: 'identityUser',
+                attributes: { exclude: ['passwordHash'] },
+                where: filters.where,
+            },
+        ],
     });
 }
+
+/**
+ * Find a buyer user by a provided id
+ * @param { Number } id: Required
+ * @returns found buyer user
+ */
 
 async function findBuyerById(id) {
     return BuyerUserModel.findOne({
         where: { id },
-        include: buyerReferenceModels,
+        include: [
+            {
+                model: models.buyer_user_gender,
+                as: 'gender',
+            },
+            {
+                model: models.identity_user,
+                as: 'identityUser',
+                attributes: { exclude: ['passwordHash'] },
+            },
+        ],
     });
 }
+
+/**
+ * Create a buyer user
+ * @param { Object } newBuyer: Required
+ * @returns created buyer user
+ */
 
 async function createBuyer(newBuyer) {
     const identityUser = await identityUserService.createIdentityUser({
@@ -58,24 +86,41 @@ async function createBuyer(newBuyer) {
         bornDate: newBuyer.bornDate,
         city: newBuyer.city,
         identityUserId: identityUser.id,
+        genderId: newBuyer.genderId,
     };
-
-    const buyerUserGender = await getGenderByKeyName(newBuyer.gender);
-    buyerUser.genderId = buyerUserGender.id;
 
     return BuyerUserModel.create(buyerUser);
 }
 
-async function updateBuyer(id, buyer = {}) {
-    const { identityUserId } = await findBuyerById(id);
+/**
+ * Update a buyer user by a provided id
+ * @param { Number } id: Required
+ * @param { Object } body: Required
+ * @returns the updated buyer user
+ */
 
-    BuyerUserModel.update(buyer, {
+async function updateBuyer(id, body) {
+    const foundBuyerUser = await findBuyerById(id);
+
+    if (!foundBuyerUser) {
+        throw new Error('Buyer user not found.');
+    }
+
+    await BuyerUserModel.update(body, {
         where: { id },
     });
 
-    await identityUserService.updateIdentityUser(identityUserId, buyer);
+    await identityUserService.updateIdentityUser(
+        foundBuyerUser.identityUserId,
+        body.identityUser
+    );
 
-    return await findBuyerById(id);
+    return findBuyerById(id);
 }
 
-module.exports = { createBuyer, findBuyerById, getBuyers, updateBuyer };
+module.exports = {
+    createBuyer,
+    findBuyerById,
+    getBuyers,
+    updateBuyer,
+};
