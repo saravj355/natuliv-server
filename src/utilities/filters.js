@@ -1,4 +1,10 @@
-function handleDefaultFilters(filter) {
+/**
+ * handle the default filters for entities
+ * @param { Object } filter: Optional
+ * @returns the default filters
+ */
+
+function handleDefaultFilters(filter = {}) {
     /* default filters */
     const filters = {
         where: {},
