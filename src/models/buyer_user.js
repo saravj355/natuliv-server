@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define(
-        'supplier_location',
+        'buyer_user',
         {
             id: {
                 autoIncrement: true,
@@ -8,34 +8,38 @@ module.exports = function (sequelize, DataTypes) {
                 allowNull: false,
                 primaryKey: true,
             },
-            supplierId: {
+            bornDate: {
+                type: DataTypes.DATEONLY,
+                allowNull: false,
+            },
+            genderId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: {
-                    model: 'supplier',
+                    model: 'buyer_user_gender',
                     key: 'id',
                 },
             },
-            address: {
-                type: DataTypes.STRING(45),
+            lastSurveyFillDate: {
+                type: DataTypes.DATE,
                 allowNull: true,
             },
-            long: {
-                type: DataTypes.STRING(45),
-                allowNull: true,
-            },
-            lat: {
-                type: DataTypes.STRING(45),
-                allowNull: true,
-            },
-            country: {
+            city: {
                 type: DataTypes.STRING(45),
                 allowNull: false,
+            },
+            identityUserId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                references: {
+                    model: 'identity_user',
+                    key: 'id',
+                },
             },
         },
         {
             sequelize,
-            tableName: 'supplier_location',
+            tableName: 'buyer_user',
             timestamps: false,
             indexes: [
                 {
@@ -45,9 +49,14 @@ module.exports = function (sequelize, DataTypes) {
                     fields: [{ name: 'id' }],
                 },
                 {
-                    name: 'FK_SupplierLocation_Supplier_idx',
+                    name: 'FK_BuyerUser_IdentityUser_idx',
                     using: 'BTREE',
-                    fields: [{ name: 'supplierId' }],
+                    fields: [{ name: 'identityUserId' }],
+                },
+                {
+                    name: 'FK_BuyerUser_BuyerUserGender_idx',
+                    using: 'BTREE',
+                    fields: [{ name: 'genderId' }],
                 },
             ],
         }

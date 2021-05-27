@@ -6,14 +6,19 @@
     "license": "MIT",
     "private": true,
     "scripts": {
-        "start": "nodemon server.js",
-        "debug": "nodemon --inspect server.js"
+        "kill_port": "npx kill-port 5000",
+        "start": "yarn kill_port && nodemon server.js",
+        "debug": "nodemon --inspect server.js",
+        "lint": "npx eslint .",
+        "prettier": "prettier --write ."
     },
     "dependencies": {
+        "cors": "^2.8.5",
         "crypto-js": "^4.0.0",
         "dayjs": "^1.10.4",
         "dotenv": "^8.2.0",
         "express": "^4.17.1",
+        "generate-password": "^1.6.0",
         "lodash": "^4.17.21",
         "mysql2": "^2.2.5",
         "sequelize": "^6.5.0",

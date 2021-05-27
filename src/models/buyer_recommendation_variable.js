@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define(
-        'user_recommendation_variable',
+        'buyer_recommendation_variable',
         {
             id: {
                 autoIncrement: true,
@@ -8,11 +8,11 @@ module.exports = function (sequelize, DataTypes) {
                 allowNull: false,
                 primaryKey: true,
             },
-            userId: {
+            buyerUserId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: {
-                    model: 'user',
+                    model: 'buyer_user',
                     key: 'id',
                 },
             },
@@ -40,18 +40,10 @@ module.exports = function (sequelize, DataTypes) {
                     key: 'id',
                 },
             },
-            genderId: {
-                type: DataTypes.INTEGER,
-                allowNull: false,
-                references: {
-                    model: 'recommendation_variable_catalog',
-                    key: 'id',
-                },
-            },
         },
         {
             sequelize,
-            tableName: 'user_recommendation_variable',
+            tableName: 'buyer_recommendation_variable',
             timestamps: false,
             indexes: [
                 {
@@ -61,27 +53,22 @@ module.exports = function (sequelize, DataTypes) {
                     fields: [{ name: 'id' }],
                 },
                 {
-                    name: 'FK_URV_RecommendationVariableCatalog_idx',
+                    name: 'FK_BRV_BuyerUser_idx',
+                    using: 'BTREE',
+                    fields: [{ name: 'buyerUserId' }],
+                },
+                {
+                    name: 'FK_BRV_RVC_HS_idx',
                     using: 'BTREE',
                     fields: [{ name: 'hairShapeId' }],
                 },
                 {
-                    name: 'FK_URV_User_idx',
-                    using: 'BTREE',
-                    fields: [{ name: 'userId' }],
-                },
-                {
-                    name: 'FK_URV_RecommendationVariableCatalog_h_idx',
+                    name: 'FK_BRV_RVC_HT_idx',
                     using: 'BTREE',
                     fields: [{ name: 'hairTypeId' }],
                 },
                 {
-                    name: 'FK_URV_RecommendationVariableCatalog_g_idx',
-                    using: 'BTREE',
-                    fields: [{ name: 'genderId' }],
-                },
-                {
-                    name: 'FK_URV_RecommendationVariableCatalog_s_idx',
+                    name: 'FK_BRV_RVC_ST_idx',
                     using: 'BTREE',
                     fields: [{ name: 'skinTypeId' }],
                 },

@@ -9,24 +9,13 @@ module.exports = function (sequelize, DataTypes) {
                 primaryKey: true,
             },
             productId: {
-                type: DataTypes.STRING(36),
+                type: DataTypes.STRING(45),
                 allowNull: false,
-                validate: {
-                    notEmpty: {
-                        args: true,
-                        msg: 'product_id is required',
-                    },
-                },
+                unique: 'productId_UNIQUE',
             },
             name: {
                 type: DataTypes.STRING(50),
                 allowNull: false,
-                validate: {
-                    notEmpty: {
-                        args: true,
-                        msg: 'name is required',
-                    },
-                },
             },
             description: {
                 type: DataTypes.TEXT,
@@ -35,28 +24,18 @@ module.exports = function (sequelize, DataTypes) {
             price: {
                 type: DataTypes.DOUBLE,
                 allowNull: false,
-                validate: {
-                    min: 0,
-                    isNumeric: true,
-                },
             },
-            supplierId: {
+            vendorId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: {
-                    model: 'supplier',
+                    model: 'vendor',
                     key: 'id',
                 },
             },
             imagePath: {
                 type: DataTypes.STRING(200),
                 allowNull: false,
-                validate: {
-                    notEmpty: {
-                        args: true,
-                        msg: 'image is required',
-                    },
-                },
             },
             productCategoryId: {
                 type: DataTypes.INTEGER,
@@ -84,14 +63,20 @@ module.exports = function (sequelize, DataTypes) {
                     fields: [{ name: 'id' }],
                 },
                 {
+                    name: 'productId_UNIQUE',
+                    unique: true,
+                    using: 'BTREE',
+                    fields: [{ name: 'productId' }],
+                },
+                {
                     name: 'FK_Product_ProductCategory_idx',
                     using: 'BTREE',
                     fields: [{ name: 'productCategoryId' }],
                 },
                 {
-                    name: 'FK_Product_Supplier_idx',
+                    name: 'FK_Product_Vendor_idx',
                     using: 'BTREE',
-                    fields: [{ name: 'supplierId' }],
+                    fields: [{ name: 'vendorId' }],
                 },
             ],
         }

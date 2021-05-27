@@ -1,33 +1,41 @@
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define(
-        'user_supplier',
+        'vendor_location',
         {
-            userId: {
-                type: DataTypes.INTEGER,
-                allowNull: false,
-                references: {
-                    model: 'user',
-                    key: 'id',
-                },
-            },
-            supplierId: {
-                type: DataTypes.INTEGER,
-                allowNull: false,
-                references: {
-                    model: 'supplier',
-                    key: 'id',
-                },
-            },
             id: {
                 autoIncrement: true,
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 primaryKey: true,
             },
+            vendorId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                references: {
+                    model: 'vendor',
+                    key: 'id',
+                },
+            },
+            address: {
+                type: DataTypes.STRING(45),
+                allowNull: false,
+            },
+            long: {
+                type: DataTypes.STRING(45),
+                allowNull: false,
+            },
+            lat: {
+                type: DataTypes.STRING(45),
+                allowNull: false,
+            },
+            city: {
+                type: DataTypes.STRING(45),
+                allowNull: false,
+            },
         },
         {
             sequelize,
-            tableName: 'user_supplier',
+            tableName: 'vendor_location',
             timestamps: false,
             indexes: [
                 {
@@ -37,14 +45,9 @@ module.exports = function (sequelize, DataTypes) {
                     fields: [{ name: 'id' }],
                 },
                 {
-                    name: 'FK_UserSupplier_User_idx',
+                    name: 'FK_VendorLocation_Vendor_idx',
                     using: 'BTREE',
-                    fields: [{ name: 'userId' }],
-                },
-                {
-                    name: 'FK_UserSupplier_Supplier_idx',
-                    using: 'BTREE',
-                    fields: [{ name: 'supplierId' }],
+                    fields: [{ name: 'vendorId' }],
                 },
             ],
         }

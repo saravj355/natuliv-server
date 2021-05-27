@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define(
-        'product_category',
+        'buyer_user_gender',
         {
             id: {
                 autoIncrement: true,
@@ -19,7 +19,7 @@ module.exports = function (sequelize, DataTypes) {
         },
         {
             sequelize,
-            tableName: 'product_category',
+            tableName: 'buyer_user_gender',
             timestamps: false,
             indexes: [
                 {

@@ -1,17 +1,27 @@
 var DataTypes = require('sequelize').DataTypes;
+var _buyer_recommendation_variable = require('./buyer_recommendation_variable');
+var _buyer_user = require('./buyer_user');
+var _buyer_user_gender = require('./buyer_user_gender');
+var _identity_user = require('./identity_user');
+var _identity_user_role = require('./identity_user_role');
 var _product = require('./product');
 var _product_category = require('./product_category');
 var _question = require('./question');
 var _recommendation_variable_catalog = require('./recommendation_variable_catalog');
-var _supplier = require('./supplier');
-var _supplier_location = require('./supplier_location');
 var _survey_response = require('./survey_response');
-var _user = require('./user');
-var _user_recommendation_variable = require('./user_recommendation_variable');
-var _user_role = require('./user_role');
-var _user_supplier = require('./user_supplier');
+var _vendor = require('./vendor');
+var _vendor_location = require('./vendor_location');
+var _vendor_user = require('./vendor_user');
 
 function initModels(sequelize) {
+    var buyer_recommendation_variable = _buyer_recommendation_variable(
+        sequelize,
+        DataTypes
+    );
+    var buyer_user = _buyer_user(sequelize, DataTypes);
+    var buyer_user_gender = _buyer_user_gender(sequelize, DataTypes);
+    var identity_user = _identity_user(sequelize, DataTypes);
+    var identity_user_role = _identity_user_role(sequelize, DataTypes);
     var product = _product(sequelize, DataTypes);
     var product_category = _product_category(sequelize, DataTypes);
     var question = _question(sequelize, DataTypes);
@@ -19,17 +29,59 @@ function initModels(sequelize) {
         sequelize,
         DataTypes
     );
-    var supplier = _supplier(sequelize, DataTypes);
-    var supplier_location = _supplier_location(sequelize, DataTypes);
     var survey_response = _survey_response(sequelize, DataTypes);
-    var user = _user(sequelize, DataTypes);
-    var user_recommendation_variable = _user_recommendation_variable(
-        sequelize,
-        DataTypes
-    );
-    var user_role = _user_role(sequelize, DataTypes);
-    var user_supplier = _user_supplier(sequelize, DataTypes);
+    var vendor = _vendor(sequelize, DataTypes);
+    var vendor_location = _vendor_location(sequelize, DataTypes);
+    var vendor_user = _vendor_user(sequelize, DataTypes);
 
+    buyer_recommendation_variable.belongsTo(buyer_user, {
+        as: 'buyerUser',
+        foreignKey: 'buyerUserId',
+    });
+    buyer_user.hasMany(buyer_recommendation_variable, {
+        as: 'buyer_recommendation_variables',
+        foreignKey: 'buyerUserId',
+    });
+    survey_response.belongsTo(buyer_user, {
+        as: 'buyerUser',
+        foreignKey: 'buyerUserId',
+    });
+    buyer_user.hasMany(survey_response, {
+        as: 'survey_responses',
+        foreignKey: 'buyerUserId',
+    });
+    buyer_user.belongsTo(buyer_user_gender, {
+        as: 'gender',
+        foreignKey: 'genderId',
+    });
+    buyer_user_gender.hasMany(buyer_user, {
+        as: 'buyer_users',
+        foreignKey: 'genderId',
+    });
+    buyer_user.belongsTo(identity_user, {
+        as: 'identityUser',
+        foreignKey: 'identityUserId',
+    });
+    identity_user.hasMany(buyer_user, {
+        as: 'buyer_users',
+        foreignKey: 'identityUserId',
+    });
+    vendor_user.belongsTo(identity_user, {
+        as: 'identityUser',
+        foreignKey: 'identityUserId',
+    });
+    identity_user.hasMany(vendor_user, {
+        as: 'vendor_users',
+        foreignKey: 'identityUserId',
+    });
+    identity_user.belongsTo(identity_user_role, {
+        as: 'identityUserRole',
+        foreignKey: 'identityUserRoleId',
+    });
+    identity_user_role.hasMany(identity_user, {
+        as: 'identity_users',
+        foreignKey: 'identityUserRoleId',
+    });
     product.belongsTo(product_category, {
         as: 'productCategory',
         foreignKey: 'productCategoryId',
@@ -46,86 +98,54 @@ function initModels(sequelize) {
         as: 'survey_responses',
         foreignKey: 'questionId',
     });
-    user_recommendation_variable.belongsTo(recommendation_variable_catalog, {
+    buyer_recommendation_variable.belongsTo(recommendation_variable_catalog, {
         as: 'hairShape',
         foreignKey: 'hairShapeId',
     });
-    recommendation_variable_catalog.hasMany(user_recommendation_variable, {
-        as: 'user_recommendation_variables',
+    recommendation_variable_catalog.hasMany(buyer_recommendation_variable, {
+        as: 'buyer_recommendation_variables',
         foreignKey: 'hairShapeId',
     });
-    user_recommendation_variable.belongsTo(recommendation_variable_catalog, {
+    buyer_recommendation_variable.belongsTo(recommendation_variable_catalog, {
         as: 'hairType',
         foreignKey: 'hairTypeId',
     });
-    recommendation_variable_catalog.hasMany(user_recommendation_variable, {
-        as: 'hairType_user_recommendation_variables',
+    recommendation_variable_catalog.hasMany(buyer_recommendation_variable, {
+        as: 'hairType_buyer_recommendation_variables',
         foreignKey: 'hairTypeId',
     });
-    user_recommendation_variable.belongsTo(recommendation_variable_catalog, {
+    buyer_recommendation_variable.belongsTo(recommendation_variable_catalog, {
         as: 'skinType',
         foreignKey: 'skinTypeId',
     });
-    recommendation_variable_catalog.hasMany(user_recommendation_variable, {
-        as: 'skinType_user_recommendation_variables',
+    recommendation_variable_catalog.hasMany(buyer_recommendation_variable, {
+        as: 'skinType_buyer_recommendation_variables',
         foreignKey: 'skinTypeId',
     });
-    user_recommendation_variable.belongsTo(recommendation_variable_catalog, {
-        as: 'gender',
-        foreignKey: 'genderId',
+    product.belongsTo(vendor, { as: 'vendor', foreignKey: 'vendorId' });
+    vendor.hasMany(product, { as: 'products', foreignKey: 'vendorId' });
+    vendor_location.belongsTo(vendor, { as: 'vendor', foreignKey: 'vendorId' });
+    vendor.hasMany(vendor_location, {
+        as: 'vendor_locations',
+        foreignKey: 'vendorId',
     });
-    recommendation_variable_catalog.hasMany(user_recommendation_variable, {
-        as: 'gender_user_recommendation_variables',
-        foreignKey: 'genderId',
-    });
-    product.belongsTo(supplier, { as: 'supplier', foreignKey: 'supplierId' });
-    supplier.hasMany(product, { as: 'products', foreignKey: 'supplierId' });
-    supplier_location.belongsTo(supplier, {
-        as: 'supplier',
-        foreignKey: 'supplierId',
-    });
-    supplier.hasMany(supplier_location, {
-        as: 'supplier_locations',
-        foreignKey: 'supplierId',
-    });
-    user_supplier.belongsTo(supplier, {
-        as: 'supplier',
-        foreignKey: 'supplierId',
-    });
-    supplier.hasMany(user_supplier, {
-        as: 'user_suppliers',
-        foreignKey: 'supplierId',
-    });
-    survey_response.belongsTo(user, { as: 'user', foreignKey: 'userId' });
-    user.hasMany(survey_response, {
-        as: 'survey_responses',
-        foreignKey: 'userId',
-    });
-    user_recommendation_variable.belongsTo(user, {
-        as: 'user',
-        foreignKey: 'userId',
-    });
-    user.hasMany(user_recommendation_variable, {
-        as: 'user_recommendation_variables',
-        foreignKey: 'userId',
-    });
-    user_supplier.belongsTo(user, { as: 'user', foreignKey: 'userId' });
-    user.hasMany(user_supplier, { as: 'user_suppliers', foreignKey: 'userId' });
-    user.belongsTo(user_role, { as: 'userRole', foreignKey: 'userRoleId' });
-    user_role.hasMany(user, { as: 'users', foreignKey: 'userRoleId' });
+    vendor_user.belongsTo(vendor, { as: 'vendor', foreignKey: 'vendorId' });
+    vendor.hasMany(vendor_user, { as: 'vendor_users', foreignKey: 'vendorId' });
 
     return {
+        buyer_recommendation_variable,
+        buyer_user,
+        buyer_user_gender,
+        identity_user,
+        identity_user_role,
         product,
         product_category,
         question,
         recommendation_variable_catalog,
-        supplier,
-        supplier_location,
         survey_response,
-        user,
-        user_recommendation_variable,
-        user_role,
-        user_supplier,
+        vendor,
+        vendor_location,
+        vendor_user,
     };
 }
 module.exports = initModels;

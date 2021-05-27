@@ -1,4 +1,4 @@
-const { sequelize } = require('./index');
+const { sequelize } = require('./Sequelize');
 
 async function assertDatabaseConnection() {
     console.log('Checking database connection...');
@@ -10,4 +10,4 @@ async function assertDatabaseConnection() {
     }
 }
 
-module.exports = { connection: assertDatabaseConnection };
+module.exports = assertDatabaseConnection;

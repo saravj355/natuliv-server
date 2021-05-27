@@ -1,6 +1,6 @@
 module.exports = function (sequelize, DataTypes) {
     return sequelize.define(
-        'survey_response',
+        'vendor_user',
         {
             id: {
                 autoIncrement: true,
@@ -8,35 +8,26 @@ module.exports = function (sequelize, DataTypes) {
                 allowNull: false,
                 primaryKey: true,
             },
-            buyerUserId: {
+            vendorId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: {
-                    model: 'buyer_user',
+                    model: 'vendor',
                     key: 'id',
                 },
             },
-            questionId: {
+            identityUserId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: {
-                    model: 'question',
+                    model: 'identity_user',
                     key: 'id',
                 },
-            },
-            response: {
-                type: DataTypes.STRING(40),
-                allowNull: false,
-            },
-            surveyResponseCount: {
-                type: DataTypes.INTEGER,
-                allowNull: false,
-                defaultValue: 0,
             },
         },
         {
             sequelize,
-            tableName: 'survey_response',
+            tableName: 'vendor_user',
             timestamps: false,
             indexes: [
                 {
@@ -46,14 +37,14 @@ module.exports = function (sequelize, DataTypes) {
                     fields: [{ name: 'id' }],
                 },
                 {
-                    name: 'FK_SurevyResponse_Question_idx',
+                    name: 'FK_VendorUser_Vendor_idx',
                     using: 'BTREE',
-                    fields: [{ name: 'questionId' }],
+                    fields: [{ name: 'vendorId' }],
                 },
                 {
-                    name: 'FK_SurveyResponse_User_idx',
+                    name: 'FK_VendorUser_IdentityUser_idx',
                     using: 'BTREE',
-                    fields: [{ name: 'buyerUserId' }],
+                    fields: [{ name: 'identityUserId' }],
                 },
             ],
         }
