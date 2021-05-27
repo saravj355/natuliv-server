@@ -171,7 +171,7 @@ Creates a vendor.
     {
         "name": "Baz",
         "contactNumber": "1234567",
-        "websiteUrl": "https://www.foo.com",
+        "websiteUrl": "https://www.baz.com",
         "logoPath": "file.png",
         "description": "Baz is a new brand that provides natural products"
     }
