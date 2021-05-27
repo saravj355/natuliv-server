@@ -1,20 +1,18 @@
-const { Random } = require('../utilities');
+const { Hash } = require('../utilities');
 const { IdentityUserRoleEnum } = require('../enums');
-const identityUserService = require('./identityUser.service');
+const identityUserService = require('../services/identityUser.service');
 
 async function createAdminUser({ email, fullName }) {
     const adminUser = {
         fullName,
         email,
-        password: Random.generate(),
+        password: Hash.random(),
         roleName: IdentityUserRoleEnum.ADMIN,
     };
 
-    return await identityUserService.createIdentityUser(adminUser);
+    return identityUserService.createIdentityUser(adminUser);
 }
 
-async function updateAdminUser(id, user) {
-    return identityUserService.updateIdentityUser(id, user);
-}
-
-module.exports = { createAdminUser, updateAdminUser };
+module.exports = {
+    createAdminUser,
+};
